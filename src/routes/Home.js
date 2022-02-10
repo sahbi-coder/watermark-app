@@ -1,5 +1,5 @@
-import Grid from "../components.js/Grid";
-import Controls from "../components.js/Controls";
+import Grid from "../components/Grid";
+import Controls from "../components/Controls";
 import { useState } from "react";
 
 const Home = () => {
