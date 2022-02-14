@@ -12,13 +12,21 @@ const ImageManipaulationTools = ({
     color,
     setColor,
     hideTextConfig,
-    addtextToStak
+    addtextToStak,
+    drag,
+    dragStart,
+    dragEnd,
+  
+    position,
+    formRef
 }) => {
     const textRef = useRef(null)
+    
+
   
   return (<>
     {textConfigIsShown?
-    <form style={{ width: 330,position:'absolute',top:10,left:10}} className="bg-light p-2 rounded shadow-sm">
+    <form id='text-manipulator'style={{ width: 240,position:'absolute',...position}} className='bg-light p-2 rounded shadow-sm ' draggable onDragStart={dragStart} onDrag={drag} onDragEnd={dragEnd} ref={formRef}>
       <fieldset>
         <div className="mb-3 d-flex">
           <label htmlFor="text-field" className="form-label mx-1">

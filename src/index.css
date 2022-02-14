@@ -38,6 +38,10 @@ body{
     cursor:pointer;
     transition:.5s ease-in-out;
 }
+.dragging{
+   opacity: 0;
+    
+}
 
 
 
