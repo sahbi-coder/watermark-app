@@ -1,6 +1,6 @@
 import Header from "./components/Header";
 import Home from "./routes/Home";
-import { Routes, Route, useLocation, } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Footer from "./components/footer";
 import { AppContext } from "./helpers/Context";
 import { useState } from "react";
@@ -8,65 +8,65 @@ import UserOptions from "./routes/UserOptions";
 import ImageManipaulation from "./routes/ImageManipulation";
 
 function App() {
-  
-  const [imageSource, setImageSource] = useState([]);
-  const location = useLocation()
+  const [imageSources, setImageSources] = useState([]);
+  const location = useLocation();
 
-  const [modeSelector,setModeSelector]=useState({modeIsSelected:false,isIndividual:true})
+  const [modeSelector, setModeSelector] = useState({
+    modeIsSelected: false,
+    isIndividual: true,
+  });
+  const [textConfigIsShown,setTextConfigIsShown]=useState(false)
+  const showTextConfig=(e)=>{
+    
+    setTextConfigIsShown(true)
+  }
+  const hideTextConfig = (e)=>{
+   
+    setTextConfigIsShown(false)
+  }
+  
   const handleUploadedImages = (e) => {
     let files = [];
     for (let file of e.target.files) {
       const fileReader = new FileReader();
       fileReader.onloadend = function () {
         files.push(fileReader.result);
-        if (files.length === e.target.files.length) setImageSource(files);
+        if (files.length === e.target.files.length) setImageSources(files);
       };
       fileReader.readAsDataURL(file);
     }
   };
-  const toggleMode = (e)=>{
-   
-    if(e.target.id==='individual'){
-      
-       setModeSelector({modeIsSelected:true,isIndividual:true})
-      
-      return
-    
-    }
-    if(e.target.id==='multiple'){
-      
-      setModeSelector({modeIsSelected:true,isIndividual:false})
-      
-      return
-    
-    }
-    if(e.target.id==='next'&&location.pathname==='/user-options'){
-      
-      setModeSelector({modeIsSelected:true,isIndividual:modeSelector.isIndividual})
-      
-      return
-    
-    }
-    if(e.target.id==='prev'&&location.pathname==='/user-options'){
-      
-      setModeSelector({modeIsSelected:false,isIndividual:true})
-      
-      return
-    
-    }
-    if(e.target.id==='prev'&&location.pathname==='/image-manipulation'){
-      
-      setModeSelector({modeIsSelected:false,isIndividual:true})
-      
-      return
-    
-    }
-
-    
-   
-  }
   
+  const toggleMode = (e) => {
+    if (e.target.id === "individual") {
+      setModeSelector({ modeIsSelected: true, isIndividual: true });
 
+      return;
+    }
+    if (e.target.id === "multiple") {
+      setModeSelector({ modeIsSelected: true, isIndividual: false });
+
+      return;
+    }
+    if (e.target.id === "next" && location.pathname === "/user-options") {
+      setModeSelector({
+        modeIsSelected: true,
+        isIndividual: modeSelector.isIndividual,
+      });
+
+      return;
+    }
+    if (e.target.id === "prev" && location.pathname === "/user-options") {
+      setModeSelector({ modeIsSelected: false, isIndividual: true });
+
+      return;
+    }
+    if (e.target.id === "prev" && location.pathname === "/image-manipulation") {
+      setModeSelector({ modeIsSelected: false, isIndividual: true });
+
+      return;
+    }
+  };
 
   return (
     <div
@@ -75,23 +75,32 @@ function App() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        
       }}
     >
+      <AppContext.Provider
+        value={{ imageSources, handleUploadedImages, toggleMode, modeSelector ,showTextConfig,hideTextConfig,textConfigIsShown}}
+      >
+        <Header />
+        <main
+          style={{
+            marginTop: 170,
+            position:'relative',
+           
+          }}
+        >
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/user-options" element={<UserOptions />}></Route>
+            <Route
+              path="/image-manipulation"
+              element={<ImageManipaulation />}
+            ></Route>
+          </Routes>
+        </main>
 
-      <AppContext.Provider value={{imageSource,handleUploadedImages,toggleMode,modeSelector}}>
-
-      <Header />
-
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/user-options" element={<UserOptions />} ></Route>
-        <Route path="/image-manipulation" element={<ImageManipaulation/>}></Route>
-
-      </Routes>
-     
-      < Footer />
+        <Footer />
       </AppContext.Provider>
-     
     </div>
   );
 }

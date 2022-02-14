@@ -7,7 +7,7 @@ import { AppContext } from "../helpers/Context";
 const ToolsBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { imageSource,toggleMode,modeSelector } = useContext(AppContext);
+  const { imageSources,toggleMode,modeSelector,showTextConfig} = useContext(AppContext);
   
 
   const paginationActivation = () => {
@@ -15,7 +15,7 @@ const ToolsBar = () => {
       case "/":
         return {
           previous: true,
-          next: imageSource.length ? false : true,
+          next: imageSources.length ? false : true,
         };
       case "/user-options":
         return {
@@ -40,7 +40,7 @@ const ToolsBar = () => {
         if (
           e.target.id === "next" &&
           !paginationActivation().next &&
-          imageSource.length > 1
+          imageSources.length > 1
         ) {
           navigate("/user-options", { state: "/" });
           break;
@@ -78,7 +78,7 @@ const ToolsBar = () => {
 
   return (
     <div
-      className={`d-flex ${
+      className={`d-md-flex ${
         location.pathname === "/user-options" ? "justify-content-between" : location.pathname === "/"?"justify-content-end":"justify-content-center"
       } align-items-center  bg-white py-2`}
     >
@@ -96,8 +96,8 @@ const ToolsBar = () => {
 
       
       {location.pathname === "/image-manipulation" ? (
-        <div>
-          <button className="btn bg-light mx-1 text-primary">ADD TEXT</button>
+        <div className="py-1">
+          <button className="btn bg-light mx-1 text-primary" onClick={showTextConfig}>ADD TEXT</button>
           <button className="btn bg-light mx-1 text-primary">ADD LOGO</button>
           <button className="btn bg-light mx-1 text-primary">
             REMOVE WATERMARK

@@ -6,7 +6,7 @@ const Home = () => {
 
   
   return (
-    <div style={{marginTop:80,marginLeft:10}}>
+    <div style={{marginLeft:10}}>
       <Controls />
       <Grid />
     </div>
