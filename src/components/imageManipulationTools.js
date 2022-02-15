@@ -2,7 +2,7 @@
 import { ChromePicker } from "react-color";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { useRef } from "react";
 
 const ImageManipaulationTools = ({
@@ -16,9 +16,12 @@ const ImageManipaulationTools = ({
     drag,
     dragStart,
     dragEnd,
-  
+    XinputRef,
+    YinputRef,
     position,
-    formRef
+    formRef,
+    downloadImage,
+    canvasRef
 }) => {
     const textRef = useRef(null)
     
@@ -67,24 +70,58 @@ const ImageManipaulationTools = ({
           ) : null}
         </div>
         <div className=" mb-3 d-flex">
-          <label htmlFor="text-size-range" className="form-label mx-1">
+          <label htmlFor="text-size" className="form-label mx-1">
             size:
           </label>
           <input
-            type="range"
-            className="form-range"
+            type="number"
+          
             min="0"
-            max="5"
-            id="text-size-range"
+            max="100"
+            id="text-size"
           ></input>
+          
         </div>
-        <div className=" mb-3 d-flex justify-content-end">
+        <div className=" mb-3 d-flex">
+          <label htmlFor="text-left-position" className="form-label mx-1">
+            x position in %:
+          </label>
+        <input ref={XinputRef}
+            type="number"
+          
+            min="0"
+            max="100"
+            id="text-left-position"
+          ></input>
+          
+        </div>
+        <div className=" mb-3 d-flex">
+          <label htmlFor="text-top-position" className="form-label mx-1">
+          y position in %:
+          </label>
+          <input
+          ref={YinputRef}
+            type="number"
+            
+            min="0"
+            max="100"
+            id="text-top-position"
+          ></input>
+          
+        </div>
+        <div className=" mb-3 d-flex justify-content-start">
           <button className="btn btn-outline-primary mx-1" onClick={(e)=>{addtextToStak(e,textRef.current.value)}}>add text</button>
           <button className="btn  btn-outline-danger mx-1"onClick={hideTextConfig}>
             <FontAwesomeIcon icon={faCircleXmark} className="mx-1" />
             close
           </button>
         </div>
+          <div className=" mb-3 d-flex justify-content-start">
+        <button className="btn  btn-outline-success mx-1"onClick={(e)=>{downloadImage(e,canvasRef.current)} }>
+            <FontAwesomeIcon icon={faDownload} className="mx-1" />
+            download image 
+          </button>
+          </div>
       </fieldset>
     </form>:null}
   </>

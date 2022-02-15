@@ -1,13 +1,29 @@
 
 import { text } from "@fortawesome/fontawesome-svg-core";
 import { useEffect } from "react";
-const Canvas = ({ canvasRef, textToAdd }) => {
+
+const Canvas = ({ canvasRef, textToAdd,imageSources }) => {
   useEffect(() => {
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     let oldTxt
-    const drawText = (txt)=>{
+    let img = new Image()
+    img.onload=function(){
+
+
+      
+      const aspectRatio  = img.naturalWidth/img.naturalHeight
+      
+      canvas.height =  canvas.width/aspectRatio
+      img.height= canvas.height
+      img.width = canvas.width
+     
+      ctx.drawImage(img,0,0,img.width,img.height)
+      drawText(textToAdd.text,textToAdd.left,textToAdd.top)
+    }
+    img.src=imageSources[0]
+    const drawText = (txt,xPos,yPos)=>{
       // normal, italic, bold
       // px pt cm in rem em
       // any installed or imported font
@@ -23,10 +39,11 @@ const Canvas = ({ canvasRef, textToAdd }) => {
       //direction ltr, rtl, inherit
       ctx.direction = 'ltr';
       
-      
+      let x = xPos*canvas.width/100
+      let y = yPos*canvas.height/100
       
     
-      ctx.strokeText(txt, 50, 100);
+      ctx.strokeText(txt, x, y);
       oldTxt=text
       
       
@@ -37,8 +54,9 @@ const Canvas = ({ canvasRef, textToAdd }) => {
       let w = metrics.width;
       ctx.clearRect(50, 110, w, -50);
   }
+ 
   
-    drawText(textToAdd)
+    
     
     // clearText()
   
@@ -49,7 +67,7 @@ const Canvas = ({ canvasRef, textToAdd }) => {
 
   return (
     <div className="d-flex justify-content-center mb-2 container">
-      <canvas ref={canvasRef} style={{ width: "80%" }} />
+      <canvas ref={canvasRef} width='600' />
     </div>
   );
 };
