@@ -2,10 +2,10 @@
 import { ChromePicker } from "react-color";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark, faDownload } from "@fortawesome/free-solid-svg-icons";
+import {  faCircleXmark, faDownload, faPalette, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRef } from "react";
 
-const ImageManipaulationTools = ({
+const TextEditor = ({
     textConfigIsShown,
     setColorVisibility,
     colorPickerIsVisible,
@@ -21,7 +21,10 @@ const ImageManipaulationTools = ({
     position,
     formRef,
     downloadImage,
-    canvasRef
+    canvasRef,
+    textSizeRef
+    
+    
 }) => {
     const textRef = useRef(null)
     
@@ -58,7 +61,7 @@ const ImageManipaulationTools = ({
             className="btn btn-outline-secondary"
             onClick={setColorVisibility}
           >
-            {!colorPickerIsVisible ? "pick a color" : "hide color picker"}
+            <FontAwesomeIcon icon={faPalette} className='mx-1'/>{!colorPickerIsVisible ? "pick a color" : "hide color picker"}
           </button>
           {colorPickerIsVisible ? (
             <div style={{ position: "absolute", left: "100%" ,top:'-100px'}}>
@@ -75,7 +78,7 @@ const ImageManipaulationTools = ({
           </label>
           <input
             type="number"
-          
+            ref={textSizeRef}
             min="0"
             max="100"
             id="text-size"
@@ -110,21 +113,25 @@ const ImageManipaulationTools = ({
           
         </div>
         <div className=" mb-3 d-flex justify-content-start">
-          <button className="btn btn-outline-primary mx-1" onClick={(e)=>{addtextToStak(e,textRef.current.value)}}>add text</button>
+          <button className="btn btn-outline-primary mx-1" 
+          onClick={(e)=>{addtextToStak(e,textRef.current.value)}}>
+            <FontAwesomeIcon icon={faPlus} className="mx-1" />
+            add text</button>
           <button className="btn  btn-outline-danger mx-1"onClick={hideTextConfig}>
             <FontAwesomeIcon icon={faCircleXmark} className="mx-1" />
             close
           </button>
         </div>
-          <div className=" mb-3 d-flex justify-content-start">
+          <div className=" mb-3 d-flex justify-content-start" >
         <button className="btn  btn-outline-success mx-1"onClick={(e)=>{downloadImage(e,canvasRef.current)} }>
             <FontAwesomeIcon icon={faDownload} className="mx-1" />
             download image 
           </button>
+  
           </div>
       </fieldset>
     </form>:null}
   </>
   )
 };
-export default ImageManipaulationTools;
+export default TextEditor;

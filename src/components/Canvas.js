@@ -1,73 +1,88 @@
-
 import { text } from "@fortawesome/fontawesome-svg-core";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Canvas = ({ canvasRef, textToAdd,imageSources }) => {
+const Canvas = ({
+  canvasRef,
+  textToAdd,
+  imageSources,
+  currentImageIndex,
+  getNextImage,
+  getPrevtImage,
+  logoToAdd,
+ 
+}) => {
   useEffect(() => {
-
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    let oldTxt
-    let img = new Image()
-    img.onload=function(){
-
-
+    let oldTxt;
+    const img = new Image();
+    
+    img.onload = function () {
+      const aspectRatio = img.naturalWidth / img.naturalHeight;
       
-      const aspectRatio  = img.naturalWidth/img.naturalHeight
-      
-      canvas.height =  canvas.width/aspectRatio
-      img.height= canvas.height
-      img.width = canvas.width
+      canvas.height = canvas.width / aspectRatio;
+      img.height = canvas.height;
+      img.width = canvas.width;
+      const logo = new Image()
+      logo.onload=function(){
+        logo.width = logoToAdd.size
+        logo.height = logoToAdd.size
+        
+        ctx.drawImage(logo, logoToAdd.left, logoToAdd.top, logo.width,logo.height);
+      }
+      logo.src = logoToAdd.logo
      
-      ctx.drawImage(img,0,0,img.width,img.height)
-      drawText(textToAdd.text,textToAdd.left,textToAdd.top)
-    }
-    img.src=imageSources[0]
-    const drawText = (txt,xPos,yPos)=>{
-      // normal, italic, bold
-      // px pt cm in rem em
-      // any installed or imported font
-      // let oldTxt
-      let fontFamily = 'Allerta Stencil';
-      ctx.font = `normal 40px xyz, ${fontFamily}, Helvetica, Arial, monospace`;
-      ctx.fillStyle = 'cornflowerblue';
-      ctx.strokeStyle = '#bada55';
-      //textAlign center, left, right, end, start
-      ctx.textAlign = 'start';
-      //textBaseline top, hanging, middle, bottom,ideographic, alphabetic
-      ctx.textBaseline = 'alphabetic';
-      //direction ltr, rtl, inherit
-      ctx.direction = 'ltr';
+      ctx.drawImage(img, 0, 0, img.width, img.height);
+      drawText(textToAdd.text, textToAdd.left, textToAdd.top,textToAdd.size,textToAdd.color);
+    };
+    img.src = imageSources[currentImageIndex];
+    const drawText = (txt, xPos, yPos,size,color) => {
       
-      let x = xPos*canvas.width/100
-      let y = yPos*canvas.height/100
+      const fontFamily = "Allerta Stencil";
+      ctx.font = `normal ${size}px xyz, ${fontFamily}, Helvetica, Arial, monospace`;
+      ctx.fillStyle = "cornflowerblue";
       
-    
+      ctx.strokeStyle = `${color.hex}`;
+
+      ctx.textAlign = "start";
+
+      ctx.textBaseline = "alphabetic";
+
+      ctx.direction = "ltr";
+
+      const x = (xPos * canvas.width) / 100;
+      const y = (yPos * canvas.height) / 100;
+
       ctx.strokeText(txt, x, y);
-      oldTxt=text
-      
-      
-      
-  }
-  const clearText =()=>{
-    let metrics = ctx.measureText(oldTxt);
-      let w = metrics.width;
+      oldTxt = text;
+    };
+    const clearText = () => {
+      const metrics = ctx.measureText(oldTxt);
+      const w = metrics.width;
       ctx.clearRect(50, 110, w, -50);
-  }
- 
-  
-    
-    
-    // clearText()
-  
-  
-  
- 
-}, [textToAdd]);
+    };
+  }, [textToAdd, currentImageIndex, logoToAdd]);
 
   return (
-    <div className="d-flex justify-content-center mb-2 container">
-      <canvas ref={canvasRef} width='600' />
+    <div className="d-flex justify-content-center mb-2 container align-items-center">
+      {currentImageIndex > 0 ? (
+        <FontAwesomeIcon
+          icon={faAngleLeft}
+          className="mx-2"
+          onClick={getPrevtImage}
+        />
+      ) : null}
+
+      <canvas ref={canvasRef} width="600" />
+      {currentImageIndex < imageSources.length - 1 ? (
+        <FontAwesomeIcon
+          icon={faAngleRight}
+          className="mx-2"
+          onClick={getNextImage}
+        />
+      ) : null}
     </div>
   );
 };

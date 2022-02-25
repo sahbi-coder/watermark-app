@@ -1,21 +1,19 @@
 import { useContext } from "react";
 import { AppContext } from "../helpers/Context";
+import BootstrapFilePicker from "./BootstrapFilePicker";
+import GoogleDriveFilePicker from "./googleDriveFilePicker";
 
 const Controls = () => {
   const { handleUploadedImages } = useContext(AppContext);
+
   return (
-    <div className="mb-3" style={{ width: 300, textAlign: "start" }}>
-      <label htmlFor="formFile" className="form-label">
-        {" "}
-        choose image(s) below:
-      </label>
-      <input
-        className="form-control form-control-sm"
-        id="formFile"
-        type="file"
-        multiple
-        onChange={handleUploadedImages}
-      />
+    <div className="d-flex justify-content-center mb-3 ">
+      <div className="  card rounded" style={{ width: 330 }}>
+        <GoogleDriveFilePicker />
+
+        <div>Or</div>
+        <BootstrapFilePicker handleUploadedImages={handleUploadedImages} />
+      </div>
     </div>
   );
 };

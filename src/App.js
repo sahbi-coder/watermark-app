@@ -24,6 +24,15 @@ function App() {
    
     setTextConfigIsShown(false)
   }
+  const [logoConfigIsShown,setLogoConfigIsShown]=useState(false)
+  const showLogoConfig=(e)=>{
+    
+    setLogoConfigIsShown(true)
+  }
+  const hideLogoConfig = (e)=>{
+   
+    setLogoConfigIsShown(false)
+  }
   
   const handleUploadedImages = (e) => {
     let files = [];
@@ -36,6 +45,9 @@ function App() {
       fileReader.readAsDataURL(file);
     }
   };
+  const getImagesFromDrive = (data) => {
+    setImageSources(data.map(i=>i.result.webContentLink))
+  }
   
   const toggleMode = (e) => {
     if (e.target.id === "individual") {
@@ -79,7 +91,10 @@ function App() {
       }}
     >
       <AppContext.Provider
-        value={{ imageSources, handleUploadedImages, toggleMode, modeSelector ,showTextConfig,hideTextConfig,textConfigIsShown}}
+        value={{ imageSources, handleUploadedImages, toggleMode, modeSelector 
+          ,showTextConfig,hideTextConfig,textConfigIsShown
+          ,showLogoConfig,hideLogoConfig,logoConfigIsShown,getImagesFromDrive
+        }}
       >
         <Header />
         <main

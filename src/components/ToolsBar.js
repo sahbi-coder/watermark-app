@@ -7,7 +7,7 @@ import { AppContext } from "../helpers/Context";
 const ToolsBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { imageSources,toggleMode,modeSelector,showTextConfig} = useContext(AppContext);
+  const { imageSources,toggleMode,modeSelector,showTextConfig,showLogoConfig} = useContext(AppContext);
   
 
   const paginationActivation = () => {
@@ -98,7 +98,7 @@ const ToolsBar = () => {
       {location.pathname === "/image-manipulation" ? (
         <div className="py-1">
           <button className="btn bg-light mx-1 text-primary" onClick={showTextConfig}>ADD TEXT</button>
-          <button className="btn bg-light mx-1 text-primary">ADD LOGO</button>
+          <button className="btn bg-light mx-1 text-primary" onClick={showLogoConfig}>ADD LOGO</button>
           <button className="btn bg-light mx-1 text-primary">
             REMOVE WATERMARK
           </button>
