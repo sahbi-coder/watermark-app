@@ -3,7 +3,7 @@ import { useEffect } from "react";
 const Footer = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const redirectedUrls = ["/user-options","/image-manipulation"]
+  const redirectedUrls = ["/user-options","/image-manipulation","/all-images-manipulation"]
   useEffect(() => {
     if (~redirectedUrls.indexOf(location.pathname) ) {
       navigate("/");

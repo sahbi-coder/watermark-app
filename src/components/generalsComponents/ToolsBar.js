@@ -2,7 +2,7 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AppContext } from "../helpers/Context";
+import { AppContext } from "../../helpers/Context";
 
 const ToolsBar = () => {
   const location = useLocation();
@@ -23,6 +23,11 @@ const ToolsBar = () => {
           next: modeSelector.modeIsSelected ? false : true,
         };
       case "/image-manipulation":
+        return {
+          previous: false,
+          next: true,
+        };
+      case "/all-images-manipulation":
         return {
           previous: false,
           next: true,
@@ -51,8 +56,12 @@ const ToolsBar = () => {
         }
         break;
       case "/user-options":
-        if (e.target.id === "next" && !paginationActivation().next) {
+        if (e.target.id === "next" && !paginationActivation().next&&modeSelector.isIndividual) {
           navigate("/image-manipulation", { state: "/user-options" });
+          break;
+        }
+        if (e.target.id === "next" && !paginationActivation().next&&!modeSelector.isIndividual) {
+          navigate("/all-images-manipulation", { state: "/user-options" });
           break;
         }
         if ((e.target.id === "prev", { state: "/user-options" })) {
@@ -60,6 +69,18 @@ const ToolsBar = () => {
         }
         break;
       case "/image-manipulation":
+        if (e.target.id === "prev" && !paginationActivation().prev) {
+          if (location.state === "/") {
+            navigate("/");
+            break;
+          }
+
+          if (location.state === "/user-options") {
+            navigate("/user-options");
+          }
+        }
+        break;
+      case "/all-images-manipulation":
         if (e.target.id === "prev" && !paginationActivation().prev) {
           if (location.state === "/") {
             navigate("/");
@@ -95,7 +116,7 @@ const ToolsBar = () => {
       ) : null}
 
       
-      {location.pathname === "/image-manipulation" ? (
+      {(location.pathname === "/image-manipulation")||(location.pathname === "/all-images-manipulation") ? (
         <div className="py-1">
           <button className="btn bg-light mx-1 text-primary" onClick={showTextConfig}>ADD TEXT</button>
           <button className="btn bg-light mx-1 text-primary" onClick={showLogoConfig}>ADD LOGO</button>
@@ -104,7 +125,9 @@ const ToolsBar = () => {
           </button>
         </div>
       ) : null}
-      {location.pathname !== "/image-manipulation" ? (
+     
+     
+      {location.pathname !== "/image-manipulation"&&location.pathname!=="/all-images-manipulation" ? (
         <button
           id="next"
           className="btn bg-light mx-1 text-primary"

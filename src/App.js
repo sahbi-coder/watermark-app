@@ -1,15 +1,17 @@
-import Header from "./components/Header";
+import Header from "./components/generalsComponents/Header";
 import Home from "./routes/Home";
 import { Routes, Route, useLocation } from "react-router-dom";
-import Footer from "./components/footer";
+import Footer from "./components/generalsComponents/footer";
 import { AppContext } from "./helpers/Context";
 import { useState } from "react";
 import UserOptions from "./routes/UserOptions";
 import ImageManipaulation from "./routes/ImageManipulation";
+import AllImagesManipaulation from "./routes/allImagesManipulation"
 
 function App() {
   const [imageSources, setImageSources] = useState([]);
   const location = useLocation();
+  
 
   const [modeSelector, setModeSelector] = useState({
     modeIsSelected: false,
@@ -110,6 +112,10 @@ function App() {
             <Route
               path="/image-manipulation"
               element={<ImageManipaulation />}
+            ></Route>
+            <Route
+              path="/all-images-manipulation"
+              element={<AllImagesManipaulation />}
             ></Route>
           </Routes>
         </main>

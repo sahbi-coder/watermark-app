@@ -1,7 +1,7 @@
-import Canvas from "../components/imageManipulation/Canvas";
+import Canvas from "../components/allImagesManipulation/Canvas";
 import { useRef, useState, useContext } from "react";
-import TextEditor from "../components/imageManipulation/textEditor";
-import LogoEditor from '../components/imageManipulation/LogoEditor'
+import TextEditor from "../components/allImagesManipulation/textEditor";
+import LogoEditor from '../components/allImagesManipulation/LogoEditor'
 
 import { AppContext } from "../helpers/Context";
 
@@ -18,11 +18,11 @@ const ImageManipaulation = () => {
   const [colorPickerIsVisible, setColorPickerIsVisible] = useState(false);
   const { textConfigIsShown, hideTextConfig,hideLogoConfig,logoConfigIsShown } = useContext(AppContext);
   const { imageSources } = useContext(AppContext);
-  const [currentImageIndex, setCurrentImageInsex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [textToAdd, setTextsToAdd] = useState({ text: "", top: 0, left: 0 ,size:24,color:"#fff"});
   const [logoToAdd, setLogosToAdd] = useState({ logo: "", top: 0, left: 0 ,size:0});
   const [textFormPosition, setTextFormPosition] = useState({ top: 10, left: 10 });
-  
+  const [startDownload,setStartDownload]=useState(false)
   const [logoFormPosition, setLogoFormPosition] = useState({ top: 10, left: 10 });
   const [logoSource,setLogoSource]=useState('')
   const textFormRef = useRef(null);
@@ -35,16 +35,16 @@ const ImageManipaulation = () => {
   const textSizeRef =useRef(null)
   const logoSizeRef =useRef(null)
 
-  const getNextImage = (e) => {
-    e.preventDefault();
+  const getNextImage = () => {
+  
     if (currentImageIndex < imageSources.length - 1) {
-      setCurrentImageInsex(currentImageIndex + 1);
+      setCurrentImageIndex(currentImageIndex + 1);
     }
   };
   const getPrevtImage = (e) => {
-    e.preventDefault();
+   
     if (currentImageIndex > 0) {
-      setCurrentImageInsex(currentImageIndex - 1);
+      setCurrentImageIndex(currentImageIndex - 1);
     }
   };
 
@@ -58,13 +58,16 @@ const ImageManipaulation = () => {
   const setNewLogoFormPosition = (left, top) => {
     setLogoFormPosition({ left: left, top: top });
   };
-  function downloadImage(e, canvas) {
+  const  downloadImage=(e)=> {
     e.preventDefault();
-    const anchor = document.createElement("a");
-    anchor.href = canvas.toDataURL("image/png");
-    anchor.download = "IMAGE.PNG";
-    anchor.click();
+    setStartDownload(true)
+   
   }
+  const stopDownload=(e)=>{
+      setStartDownload(false)
+      setCurrentImageIndex(0)
+  }
+ 
   const addtextToStak = (e, text) => {
     e.preventDefault();
 
@@ -153,10 +156,11 @@ const ImageManipaulation = () => {
         getPrevtImage={getPrevtImage}
         canvasRef={canvasRef}
         textToAdd={textToAdd}
-        
+        startDownload={startDownload}
         logoToAdd={logoToAdd}
         imageSources={imageSources}
         currentImageIndex={currentImageIndex}
+        stopDownload={stopDownload}
       />
       <TextEditor
         addtextToStak={addtextToStak}
@@ -165,8 +169,8 @@ const ImageManipaulation = () => {
         setColor={setColor}
         dragStart={dragStart}
         dragEnd={dragEnd}
+        canvasRef={canvasRef}
         downloadImage={downloadImage}
-        
         textConfigIsShown={textConfigIsShown}
         colorPickerIsVisible={colorPickerIsVisible}
         color={color}
@@ -175,7 +179,7 @@ const ImageManipaulation = () => {
         YinputRef={textYinputRef}
         position={textFormPosition}
         formRef={textFormRef}
-        canvasRef={canvasRef}
+        
         textSizeRef={textSizeRef}
       />
       <LogoEditor
@@ -185,14 +189,14 @@ const ImageManipaulation = () => {
         getLogo={getLogo}
         dragStart={dragStart}
         dragEnd={dragEnd}
-        downloadImage={downloadImage}
+        
         logoConfigIsShown={logoConfigIsShown}    
         hideLogoConfig={hideLogoConfig}
         XinputRef={logoXinputRef}
         YinputRef={logoYinputRef}
         position={logoFormPosition}
         formRef={logoFormRef}
-        canvasRef={canvasRef}
+        
         logoSizeRef={logoSizeRef}
       />
     </div>

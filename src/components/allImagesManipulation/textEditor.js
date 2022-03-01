@@ -1,9 +1,9 @@
-
 import { ChromePicker } from "react-color";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faCircleXmark, faDownload, faPalette, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRef } from "react";
+
 
 const TextEditor = ({
     textConfigIsShown,
@@ -21,8 +21,8 @@ const TextEditor = ({
     position,
     formRef,
     downloadImage,
-    canvasRef,
-    textSizeRef
+    textSizeRef,
+    canvasRef
     
     
 }) => {
@@ -122,13 +122,11 @@ const TextEditor = ({
             close
           </button>
         </div>
-          <div className=" mb-3 d-flex justify-content-start" >
-        <button className="btn  btn-outline-success mx-1"onClick={(e)=>{downloadImage(e,canvasRef.current)} }>
-            <FontAwesomeIcon icon={faDownload} className="mx-1" />
-            download image 
-          </button>
-  
-          </div>
+        <div className="btn  btn-outline-success mx-1" onClick={downloadImage}>
+        download<FontAwesomeIcon icon={faDownload} className="mx-1" />
+        </div>
+        
+        
       </fieldset>
     </form>:null}
   </>

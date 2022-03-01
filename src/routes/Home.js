@@ -1,5 +1,5 @@
-import Grid from "../components/Grid";
-import Controls from "../components/Controls";
+import Grid from "../components/home/Grid";
+import Controls from "../components/home/Controls";
 
 
 const Home = () => {

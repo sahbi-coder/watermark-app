@@ -1,5 +1,6 @@
 import { useContext } from "react";
-import { AppContext } from "../helpers/Context";
+import { AppContext } from "C:/Users/__SAHBI__/Desktop/projects/portfolio projects/git-watermark-generator/watermark-app/src/helpers/Context";
+
 const Grid = () => {
   const {imageSources} = useContext(AppContext)
   const generateKey = (pre) => {
