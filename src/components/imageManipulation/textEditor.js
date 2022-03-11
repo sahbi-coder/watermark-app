@@ -3,7 +3,11 @@ import { ChromePicker } from "react-color";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faCircleXmark, faDownload, faPalette, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { Draggable } from "gsap/Draggable";
+
+gsap.registerPlugin(Draggable);
 
 
 const TextEditor = ({
@@ -14,12 +18,10 @@ const TextEditor = ({
     setColor,
     hideTextConfig,
     addtextToStak,
-    drag,
-    dragStart,
-    dragEnd,
+    
     XinputRef,
     YinputRef,
-    position,
+    
     formRef,
     downloadImage,
     canvasRef,
@@ -28,12 +30,19 @@ const TextEditor = ({
     
 }) => {
     const textRef = useRef(null)
+    useEffect(() => {
+      if (textConfigIsShown) {
+        Draggable.create("#text-manipulator", {
+          bounds: ".main",
+        });
+      }
+    }, [textConfigIsShown]);
     
 
   
   return (<>
     {textConfigIsShown?
-    <form id='text-manipulator'style={{ width: 240,position:'absolute',...position}} className='bg-light p-2 rounded shadow-sm ' draggable onDragStart={dragStart} onDrag={drag} onDragEnd={dragEnd} ref={formRef}>
+    <form id='text-manipulator'style={ {minWidth: '30vw',position:'absolute',left:10,top:10}} className='bg-light p-2 rounded shadow-sm ' ref={formRef}>
       <fieldset>
         <div className="mb-3 d-flex">
           <label htmlFor="text-field" className="form-label mx-1">
@@ -122,14 +131,14 @@ const TextEditor = ({
             <FontAwesomeIcon icon={faCircleXmark} className="mx-1" />
             close
           </button>
-        </div>
-          <div className=" mb-3 d-flex justify-content-start" >
+          
         <button className="btn  btn-outline-success mx-1"onClick={(e)=>{downloadImage(e,canvasRef.current)} }>
             <FontAwesomeIcon icon={faDownload} className="mx-1" />
             download image 
           </button>
+        </div>
   
-          </div>
+          
       </fieldset>
     </form>:null}
   </>

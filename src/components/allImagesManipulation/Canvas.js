@@ -21,21 +21,17 @@ const Canvas = ({
     img.onload = function () {
       const aspectRatio = img.naturalWidth / img.naturalHeight;
 
-      canvas.height = canvas.width / aspectRatio;
+      canvas.width = canvas.height * aspectRatio;
       img.height = canvas.height;
       img.width = canvas.width;
       const logo = new Image();
       logo.onload = function () {
         logo.width = logoToAdd.size;
         logo.height = logoToAdd.size;
+        const left = (logoToAdd.left * img.width) / 100;
+        const top = (logoToAdd.top * img.height) / 100;
 
-        ctx.drawImage(
-          logo,
-          logoToAdd.left,
-          logoToAdd.top,
-          logo.width,
-          logo.height
-        );
+        ctx.drawImage(logo, left, top, logo.width, logo.height);
         if (startDownload) {
           const anchor = document.createElement("a");
           anchor.href = canvas.toDataURL("image/png");
@@ -57,16 +53,7 @@ const Canvas = ({
         textToAdd.size,
         textToAdd.color
       );
-      // if (startDownload&&!logoToAdd.logo) {
-      //   const anchor = document.createElement("a");
-      //   anchor.href = canvas.toDataURL("image/png");
-      //   anchor.download = "IMAGE.PNG";
-      //   anchor.click();
-      //   getNextImage();
-      //   if (currentImageIndex === imageSources.length - 1) {
-      //     stopDownload();
-      //   }
-      // }
+     
     };
     img.src = imageSources[currentImageIndex];
     const drawText = (txt, xPos, yPos, size, color) => {
@@ -92,7 +79,7 @@ const Canvas = ({
 
   return (
     <div className="d-flex justify-content-center mb-2 container align-items-center">
-      <canvas ref={canvasRef} width="600" />
+      <canvas ref={canvasRef} height="450" />
     </div>
   );
 };

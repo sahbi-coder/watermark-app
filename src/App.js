@@ -105,6 +105,7 @@ function App() {
             position:'relative',
            
           }}
+          className='main'
         >
           <Routes>
             <Route path="/" element={<Home />}></Route>

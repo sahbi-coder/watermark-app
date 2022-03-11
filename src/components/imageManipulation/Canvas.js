@@ -11,39 +11,49 @@ const Canvas = ({
   getNextImage,
   getPrevtImage,
   logoToAdd,
- 
 }) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     let oldTxt;
     const img = new Image();
-    
+
     img.onload = function () {
       const aspectRatio = img.naturalWidth / img.naturalHeight;
-      
-      canvas.height = canvas.width / aspectRatio;
+
+      canvas.width = canvas.height * aspectRatio;
       img.height = canvas.height;
       img.width = canvas.width;
-      const logo = new Image()
-      logo.onload=function(){
-        logo.width = logoToAdd.size
-        logo.height = logoToAdd.size
-        
-        ctx.drawImage(logo, logoToAdd.left, logoToAdd.top, logo.width,logo.height);
-      }
-      logo.src = logoToAdd.logo
-     
+      const logo = new Image();
+      logo.onload = function () {
+        logo.width = logoToAdd.size;
+        logo.height = logoToAdd.size;
+
+        ctx.drawImage(
+          logo,
+          logoToAdd.left,
+          logoToAdd.top,
+          logo.width,
+          logo.height
+        );
+      };
+      logo.src = logoToAdd.logo;
+
       ctx.drawImage(img, 0, 0, img.width, img.height);
-      drawText(textToAdd.text, textToAdd.left, textToAdd.top,textToAdd.size,textToAdd.color);
+      drawText(
+        textToAdd.text,
+        textToAdd.left,
+        textToAdd.top,
+        textToAdd.size,
+        textToAdd.color
+      );
     };
     img.src = imageSources[currentImageIndex];
-    const drawText = (txt, xPos, yPos,size,color) => {
-      
+    const drawText = (txt, xPos, yPos, size, color) => {
       const fontFamily = "Allerta Stencil";
       ctx.font = `normal ${size}px xyz, ${fontFamily}, Helvetica, Arial, monospace`;
       ctx.fillStyle = "cornflowerblue";
-      
+
       ctx.strokeStyle = `${color.hex}`;
 
       ctx.textAlign = "start";
@@ -75,7 +85,7 @@ const Canvas = ({
         />
       ) : null}
 
-      <canvas ref={canvasRef} width="600" />
+      <canvas ref={canvasRef} height="450" />
       {currentImageIndex < imageSources.length - 1 ? (
         <FontAwesomeIcon
           icon={faAngleRight}

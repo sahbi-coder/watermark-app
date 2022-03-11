@@ -1,3 +1,6 @@
+#root{
+    --primary: #0d6efd;
+}
 html,body,#root{
     height: 100%;
 }
@@ -23,7 +26,7 @@ body{
     width:100%;
     height:100%;
     position:relative;
-    box-shadow: 0px 0px 10px  #0d6efd;
+    box-shadow: 0px 0px 10px  var(--primary);
 }
 
 .gallery-item .image{
@@ -40,16 +43,32 @@ body{
     cursor:pointer;
     transition:.5s ease-in-out;
 }
-.dragging{
-   opacity: 0;
-    
-}
+
 .button-container {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
   }
+
+  .my-label {
+    cursor: pointer;
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: .25rem;
+    border: white 1px solid;
+  }
+  .my-label:hover{
+   background-color: white;
+   color: var(--primary);
+   border: var(--primary) 1px solid;
+  }
+  #upload {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+  }  
  
 
 

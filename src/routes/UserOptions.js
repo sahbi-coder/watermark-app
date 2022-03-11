@@ -7,8 +7,8 @@ const UserOptions = () => {
   const { toggleMode } = useContext(AppContext);
   return (
     <form className="was-validated" >
-      <div>please choose one of the two options below:</div>
-      <div className="custom-control custom-radio">
+      <div className="mb-3">please select one of the options below:</div>
+      <div className="custom-control custom-radio mb-1">
         <input
           type="radio"
           className="custom-control-input mx-1"
