@@ -15,7 +15,7 @@ const Canvas = ({
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    let oldTxt;
+    
     const img = new Image();
 
     img.onload = function () {
@@ -24,33 +24,31 @@ const Canvas = ({
       canvas.width = canvas.height * aspectRatio;
       img.height = canvas.height;
       img.width = canvas.width;
-      const logo = new Image();
-      logo.onload = function () {
-        logo.width = logoToAdd.size;
-        logo.height = logoToAdd.size;
-        const x = (logoToAdd.left * canvas.width) / 100;
-      const y = (logoToAdd.top * canvas.height) / 100;
-
-        ctx.drawImage(
-          logo,
-          x,
-          y,
-          logo.width,
-          logo.height
-        );
-      };
-      logo.src = logoToAdd.logo;
+     
 
       ctx.drawImage(img, 0, 0, img.width, img.height);
-      drawText(
-        textToAdd.text,
-        textToAdd.left,
-        textToAdd.top,
-        textToAdd.size,
-        textToAdd.color
-      );
+      
+
+        textToAdd.forEach((text,i) => {
+          
+          drawText(
+            text.text,
+            text.left,
+            text.top,
+            text.size,
+            text.color
+          );
+        });
+       
+        logoToAdd.forEach(logo=>{
+          drawLogo(logo)
+        })
+      
     };
-    img.src = imageSources[currentImageIndex][0];
+  
+
+      img.src = imageSources[currentImageIndex];
+      
     const drawText = (txt, xPos, yPos, size, color) => {
       const fontFamily = "Allerta Stencil";
       ctx.font = `normal ${size}px xyz, ${fontFamily}, Helvetica, Arial, monospace`;
@@ -68,13 +66,27 @@ const Canvas = ({
       const y = (yPos * canvas.height) / 100;
 
       ctx.strokeText(txt, x, y);
-      oldTxt = text;
+      
     };
-    const clearText = () => {
-      const metrics = ctx.measureText(oldTxt);
-      const w = metrics.width;
-      ctx.clearRect(50, 110, w, -50);
-    };
+    const drawLogo= (l)=>{
+      const logo = new Image();
+      logo.onload = function () {
+        logo.width = l.size;
+        logo.height = l.size;
+        const x = (l.left * canvas.width) / 100;
+      const y = (l.top * canvas.height) / 100;
+
+        ctx.drawImage(
+          logo,
+          x,
+          y,
+          logo.width,
+          logo.height
+        );
+      };
+      logo.src =l.logo;
+    }
+   
   }, [textToAdd, currentImageIndex, logoToAdd]);
 
   return (

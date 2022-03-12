@@ -2,7 +2,7 @@
 import { ChromePicker } from "react-color";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {  faCircleXmark, faDownload, faPalette, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {  faCircleXmark, faDeleteLeft, faDownload, faMinus, faPalette, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
@@ -25,7 +25,10 @@ const TextEditor = ({
     formRef,
     downloadImage,
     canvasRef,
-    textSizeRef
+    textSizeRef,
+    clearStak,
+    removetextfromStak
+    
     
     
 }) => {
@@ -126,7 +129,19 @@ const TextEditor = ({
           <button className="btn btn-outline-primary mx-1" 
           onClick={(e)=>{addtextToStak(e,textRef.current.value)}}>
             <FontAwesomeIcon icon={faPlus} className="mx-1" />
-            add text</button>
+            add</button>
+          <button className="btn btn-outline-warning mx-1" 
+          onClick={removetextfromStak}>
+            <FontAwesomeIcon icon={faMinus} className="mx-1" />
+            delete</button>
+          <button className="btn btn-outline-danger mx-1" 
+          onClick={clearStak}>
+            <FontAwesomeIcon icon={faDeleteLeft} className="mx-1" />
+            remove all</button>
+      
+        </div>
+        <div className=" mb-3 d-flex justify-content-start">
+        
           <button className="btn  btn-outline-danger mx-1"onClick={hideTextConfig}>
             <FontAwesomeIcon icon={faCircleXmark} className="mx-1" />
             close

@@ -1,7 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleXmark,
+  faDeleteLeft,
   faDownload,
+  faMinus,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -24,6 +26,8 @@ const LogoEditor = ({
   canvasRef,
   getLogo,
   logoSizeRef,
+  removeLogofromStak,
+  clearLogoStak
 }) => {
   const logoRef = useRef(null);
   useEffect(() => {
@@ -100,8 +104,26 @@ const LogoEditor = ({
                 onClick={addLogoToStack}
               >
                 <FontAwesomeIcon icon={faPlus} className="mx-1" />
-                add logo
+                add 
               </button>
+              <button
+                className="btn btn-outline-warning mx-1"
+                onClick={removeLogofromStak}
+              >
+                <FontAwesomeIcon icon={faMinus} className="mx-1" />
+                delete
+              </button>
+              <button
+                className="btn btn-outline-danger mx-1"
+                onClick={clearLogoStak}
+              >
+                <FontAwesomeIcon icon={faDeleteLeft} className="mx-1" />
+                remove all
+              </button>
+             
+            </div>
+            <div className=" mb-3 d-flex justify-content-start">
+             
               <button
                 className="btn  btn-outline-danger mx-1"
                 onClick={hideLogoConfig}

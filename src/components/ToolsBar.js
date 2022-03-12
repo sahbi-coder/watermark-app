@@ -33,9 +33,7 @@ const ToolsBar = () => {
         <div className="py-1">
           <button className="btn bg-light mx-1 text-primary" onClick={showTextConfig}>ADD TEXT</button>
           <button className="btn bg-light mx-1 text-primary" onClick={showLogoConfig}>ADD LOGO</button>
-          <button className="btn bg-light mx-1 text-primary">
-            REMOVE WATERMARK
-          </button>
+         
         </div>
       ) : null}
      

@@ -16,20 +16,9 @@ const ImageManipaulation = () => {
     logoConfigIsShown,
   } = useContext(AppContext);
   const { imageSources } = useContext(AppContext);
-  const [currentImageIndex, setCurrentImageInsex] = useState(0);
-  const [textToAdd, setTextsToAdd] = useState({
-    text: "",
-    top: 0,
-    left: 0,
-    size: 24,
-    color: "#fff",
-  });
-  const [logoToAdd, setLogosToAdd] = useState({
-    logo: "",
-    top: 0,
-    left: 0,
-    size: 0,
-  });
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [textToAdd, setTextsToAdd] = useState([]);
+  const [logoToAdd, setLogosToAdd] = useState([]);
 
   const [logoSource, setLogoSource] = useState("");
   const textFormRef = useRef(null);
@@ -45,13 +34,13 @@ const ImageManipaulation = () => {
   const getNextImage = (e) => {
     e.preventDefault();
     if (currentImageIndex < imageSources.length - 1) {
-      setCurrentImageInsex(currentImageIndex + 1);
+      setCurrentImageIndex(currentImageIndex + 1);
     }
   };
   const getPrevtImage = (e) => {
     e.preventDefault();
     if (currentImageIndex > 0) {
-      setCurrentImageInsex(currentImageIndex - 1);
+      setCurrentImageIndex(currentImageIndex - 1);
     }
   };
 
@@ -69,35 +58,69 @@ const ImageManipaulation = () => {
   }
   const addtextToStak = (e, text) => {
     e.preventDefault();
+    const temp = [...textToAdd];
+    if (
+      text &&
+      textXinputRef.current.value &&
+      textYinputRef.current.value &&
+      textSizeRef.current.value &&
+      color
+    ) {
+      temp.push({
+        text: text,
+        left: textXinputRef.current.value,
+        top: textYinputRef.current.value,
+        size: textSizeRef.current.value,
+        color: color,
+      });
+      setTextsToAdd(temp);
+    } else {
+      alert("you must fill inputs in order to add text");
+    }
+  };
+  const removetextfromStak = (e) => {
+    e.preventDefault();
+    const temp = [...textToAdd];
+    temp.pop();
 
-    setTextsToAdd({
-      text: text,
-      left: textXinputRef.current.value,
-      top: textYinputRef.current.value,
-      size: textSizeRef.current.value,
-      color: color,
-    });
+    setTextsToAdd(temp);
+  };
+  const clearStak = (e) => {
+    e.preventDefault();
+    setTextsToAdd([]);
   };
   const addLogoToStack = (e) => {
     e.preventDefault();
-
-    setLogosToAdd({
+    const temp = [...logoToAdd,{
       logo: logoSource,
       left: logoXinputRef.current.value,
       top: logoYinputRef.current.value,
       size: logoSizeRef.current.value,
-    });
+    }]
+    setLogosToAdd(temp);
   };
   const getLogo = (e) => {
     let file = e.target.files[0];
 
     const fileReader = new FileReader();
     fileReader.onloadend = function () {
+      
+
       setLogoSource(fileReader.result);
     };
     fileReader.readAsDataURL(file);
   };
- 
+  const removeLogofromStak = (e) => {
+    e.preventDefault();
+    const temp = [...logoToAdd];
+    temp.pop();
+
+    setLogosToAdd(temp)
+  };
+  const clearLogoStak = (e) => {
+    e.preventDefault();
+    setLogosToAdd([])
+  };
 
   return (
     <div>
@@ -124,6 +147,8 @@ const ImageManipaulation = () => {
         formRef={textFormRef}
         canvasRef={canvasRef}
         textSizeRef={textSizeRef}
+        clearStak={clearStak}
+        removetextfromStak={removetextfromStak}
       />
       <LogoEditor
         addLogoToStack={addLogoToStack}
@@ -136,6 +161,8 @@ const ImageManipaulation = () => {
         formRef={logoFormRef}
         canvasRef={canvasRef}
         logoSizeRef={logoSizeRef}
+        removeLogofromStak={removeLogofromStak}
+        clearLogoStak={clearLogoStak}
       />
     </div>
   );
