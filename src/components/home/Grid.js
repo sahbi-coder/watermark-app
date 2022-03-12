@@ -15,7 +15,7 @@ const Grid = () => {
           <div key={generateKey(index) } >
             <div className="gallery-item">
               <div className="image">
-                <img src={item} />
+                <img src={item[0]} />
               </div>
             </div>
           </div>

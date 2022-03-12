@@ -55,7 +55,7 @@ const Canvas = ({
       );
      
     };
-    img.src = imageSources[currentImageIndex];
+    img.src = imageSources[currentImageIndex][0];
     const drawText = (txt, xPos, yPos, size, color) => {
       const fontFamily = "Allerta Stencil";
       ctx.font = `normal ${size}px xyz, ${fontFamily}, Helvetica, Arial, monospace`;

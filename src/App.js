@@ -45,14 +45,14 @@ function App() {
     for (let file of e.target.files) {
       const fileReader = new FileReader();
       fileReader.onloadend = function () {
-        files.push(fileReader.result);
+        files.push([fileReader.result]);
         if (files.length === e.target.files.length) setImageSources(files);
       };
       fileReader.readAsDataURL(file);
     }
   };
   const getImagesFromDrive = (data) => {
-    setImageSources(data.map(i=>i.result.webContentLink))
+    setImageSources([data.map(i=>i.result.webContentLink)])
   }
   
   const toggleMode = (e) => {
@@ -173,6 +173,18 @@ function App() {
    
    
   };
+
+  const removeWaterMark  =()=>{
+
+  }
+  const getPreviousVersion = ()=>{
+    
+  }
+  const getNextVersion = ()=>{
+
+  }
+
+ 
   
   useEffect(() => {
     if (~redirectedUrls.indexOf(location.pathname) ) {

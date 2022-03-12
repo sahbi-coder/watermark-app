@@ -97,6 +97,7 @@ const ImageManipaulation = () => {
     };
     fileReader.readAsDataURL(file);
   };
+ 
 
   return (
     <div>

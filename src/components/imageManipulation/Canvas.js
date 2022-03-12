@@ -28,11 +28,13 @@ const Canvas = ({
       logo.onload = function () {
         logo.width = logoToAdd.size;
         logo.height = logoToAdd.size;
+        const x = (logoToAdd.left * canvas.width) / 100;
+      const y = (logoToAdd.top * canvas.height) / 100;
 
         ctx.drawImage(
           logo,
-          logoToAdd.left,
-          logoToAdd.top,
+          x,
+          y,
           logo.width,
           logo.height
         );
@@ -48,7 +50,7 @@ const Canvas = ({
         textToAdd.color
       );
     };
-    img.src = imageSources[currentImageIndex];
+    img.src = imageSources[currentImageIndex][0];
     const drawText = (txt, xPos, yPos, size, color) => {
       const fontFamily = "Allerta Stencil";
       ctx.font = `normal ${size}px xyz, ${fontFamily}, Helvetica, Arial, monospace`;
