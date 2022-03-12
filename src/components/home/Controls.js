@@ -19,7 +19,7 @@ const Controls = () => {
     <div className="d-flex justify-content-center mb-3 ">
       <div className="  card rounded" style={{ width: 330 }}>
       
-        { navigator.onLine?(<><GoogleDriveFilePicker /><div>Or :</div></>):null
+        { navigator.onLine?(<GoogleDriveFilePicker />):null
       } 
 
         

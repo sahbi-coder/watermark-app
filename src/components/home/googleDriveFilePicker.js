@@ -28,7 +28,7 @@ function GoogleDriveFilePicker() {
   return (
     <div className="my-3">
       
-        <button onClick={handleOpenPicker} className="btn btn-outline-primary">select from drive</button>
+        <button onClick={handleOpenPicker} className="btn btn-outline-primary" style={{width:169,height:46}}>select from drive</button>
       
     </div>
   );

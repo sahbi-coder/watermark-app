@@ -1,16 +1,20 @@
-import Header from "./components/generalsComponents/Header";
+import Header from "./components/Header";
 import Home from "./routes/Home";
-import { Routes, Route, useLocation } from "react-router-dom";
-import Footer from "./components/generalsComponents/footer";
+
+import Footer from "./components/footer";
 import { AppContext } from "./helpers/Context";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import UserOptions from "./routes/UserOptions";
 import ImageManipaulation from "./routes/ImageManipulation";
 import AllImagesManipaulation from "./routes/allImagesManipulation"
+import { useLocation, useNavigate ,Routes, Route} from "react-router-dom";
 
 function App() {
+  const redirectedUrls = ["/user-options","/image-manipulation","/all-images-manipulation"]
   const [imageSources, setImageSources] = useState([]);
   const location = useLocation();
+ 
+  const navigate = useNavigate();
   
 
   const [modeSelector, setModeSelector] = useState({
@@ -81,6 +85,100 @@ function App() {
       return;
     }
   };
+  const paginationActivation = () => {
+    switch (location.pathname) {
+      case "/":
+        return {
+          previous: true,
+          next: imageSources.length ? false : true,
+        };
+      case "/user-options":
+        return {
+          previous: false,
+          next: modeSelector.modeIsSelected ? false : true,
+        };
+      case "/image-manipulation":
+        return {
+          previous: false,
+          next: true,
+        };
+      case "/all-images-manipulation":
+        return {
+          previous: false,
+          next: true,
+        };
+      default:
+        return {
+          previous: true,
+          next: true,
+        };
+    }
+  };
+  const changeRoute = (e) => {
+    switch (location.pathname) {
+      case "/":
+        if (
+          e.target.id === "next" &&
+          !paginationActivation().next &&
+          imageSources.length > 1
+        ) {
+          navigate("/user-options", { state: "/" });
+          break;
+        }
+
+        if (e.target.id === "next" && !paginationActivation().next) {
+          navigate("/image-manipulation", { state: "/" });
+        }
+        break;
+      case "/user-options":
+        if (e.target.id === "next" && !paginationActivation().next&&modeSelector.isIndividual) {
+          navigate("/image-manipulation", { state: "/user-options" });
+          break;
+        }
+        if (e.target.id === "next" && !paginationActivation().next&&!modeSelector.isIndividual) {
+          navigate("/all-images-manipulation", { state: "/user-options" });
+          break;
+        }
+        if ((e.target.id === "prev", { state: "/user-options" })) {
+          navigate("/");
+        }
+        break;
+      case "/image-manipulation":
+        if (e.target.id === "prev" && !paginationActivation().prev) {
+          if (location.state === "/") {
+            navigate("/");
+            break;
+          }
+
+          if (location.state === "/user-options") {
+            navigate("/user-options");
+          }
+        }
+        break;
+      case "/all-images-manipulation":
+        if (e.target.id === "prev" && !paginationActivation().prev) {
+          if (location.state === "/") {
+            navigate("/");
+            break;
+          }
+
+          if (location.state === "/user-options") {
+            navigate("/user-options");
+          }
+        }
+        break;
+      default:
+        break;
+    }
+   
+   
+  };
+  
+  useEffect(() => {
+    if (~redirectedUrls.indexOf(location.pathname) ) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div
@@ -95,7 +193,7 @@ function App() {
       <AppContext.Provider
         value={{ imageSources, handleUploadedImages, toggleMode, modeSelector 
           ,showTextConfig,hideTextConfig,textConfigIsShown
-          ,showLogoConfig,hideLogoConfig,logoConfigIsShown,getImagesFromDrive
+          ,showLogoConfig,hideLogoConfig,logoConfigIsShown,getImagesFromDrive,paginationActivation,changeRoute
         }}
       >
         <Header />

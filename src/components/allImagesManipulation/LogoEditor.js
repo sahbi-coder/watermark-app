@@ -101,7 +101,7 @@ const LogoEditor = ({
                 onClick={addLogoToStack}
               >
                 <FontAwesomeIcon icon={faPlus} className="mx-1" />
-                add text
+                add logo
               </button>
               <button
                 className="btn  btn-outline-danger mx-1"
