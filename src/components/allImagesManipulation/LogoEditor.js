@@ -3,6 +3,8 @@ import {
   faCircleXmark,
   faDownload,
   faPlus,
+  faMinus,
+  faDeleteLeft
 } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
@@ -24,6 +26,9 @@ const LogoEditor = ({
 
   getLogo,
   logoSizeRef,
+  removeLogofromStak,
+  clearLogostack,
+  
 }) => {
   const logoRef = useRef(null);
   useEffect(() => {
@@ -95,14 +100,33 @@ const LogoEditor = ({
                 
               ></input>
             </div>
+        
             <div className=" mb-3 d-flex justify-content-start">
               <button
                 className="btn btn-outline-primary mx-1"
                 onClick={addLogoToStack}
               >
                 <FontAwesomeIcon icon={faPlus} className="mx-1" />
-                add logo
+                add 
               </button>
+              <button
+                className="btn  btn-outline-warning mx-1"
+                onClick={ removeLogofromStak}
+              >
+                <FontAwesomeIcon icon={faMinus} className="mx-1" />
+                delete
+              </button>
+              <button
+              className="btn  btn-outline-danger mx-1"
+              onClick={clearLogostack}
+              
+            >
+              remove all
+              <FontAwesomeIcon icon={faDeleteLeft} className="mx-1" />
+            </button>
+            </div>
+            <div className=" mb-3 d-flex justify-content-start">
+              
               <button
                 className="btn  btn-outline-danger mx-1"
                 onClick={hideLogoConfig}
@@ -111,13 +135,14 @@ const LogoEditor = ({
                 close
               </button>
               <button
-                className="btn  btn-outline-success mx-1"
-                onClick={downloadImage}
-              >
-                download
-                <FontAwesomeIcon icon={faDownload} className="mx-1" />
-              </button>
+              className="btn  btn-outline-success mx-1"
+              onClick={downloadImage}
+            >
+              download
+              <FontAwesomeIcon icon={faDownload} className="mx-1" />
+            </button>
             </div>
+           
           </fieldset>
         </form>
       ) : null}

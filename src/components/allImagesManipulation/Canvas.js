@@ -15,7 +15,8 @@ const Canvas = ({
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    let oldTxt;
+    
+    
     const img = new Image();
 
     img.onload = function () {
@@ -24,38 +25,27 @@ const Canvas = ({
       canvas.width = canvas.height * aspectRatio;
       img.height = canvas.height;
       img.width = canvas.width;
-      const logo = new Image();
-      logo.onload = function () {
-        logo.width = logoToAdd.size;
-        logo.height = logoToAdd.size;
-        const left = (logoToAdd.left * img.width) / 100;
-        const top = (logoToAdd.top * img.height) / 100;
-
-        ctx.drawImage(logo, left, top, logo.width, logo.height);
-        if (startDownload) {
-          const anchor = document.createElement("a");
-          anchor.href = canvas.toDataURL("image/png");
-          anchor.download = "IMAGE.PNG";
-          anchor.click();
-          getNextImage();
-          if (currentImageIndex === imageSources.length - 1) {
-            stopDownload();
-          }
-        }
-      };
-      logo.src = logoToAdd.logo;
+     
 
       ctx.drawImage(img, 0, 0, img.width, img.height);
-      drawText(
-        textToAdd.text,
-        textToAdd.left,
-        textToAdd.top,
-        textToAdd.size,
-        textToAdd.color
-      );
+      textToAdd.forEach((text) => {
+          
+        drawText(
+          text.text,
+          text.left,
+          text.top,
+          text.size,
+          text.color
+        );
+      });
+      logoToAdd.forEach(logo=>{
+        drawLog(logo)
+      })
      
     };
-    img.src = imageSources[currentImageIndex];
+      
+      img.src = imageSources[currentImageIndex];
+    
 
 
    
@@ -76,7 +66,30 @@ const Canvas = ({
       const y = (yPos * canvas.height) / 100;
 
       ctx.strokeText(txt, x, y);
-      oldTxt = text;
+    }
+    const drawLog = (l)=>{
+      
+      const logo = new Image();
+      logo.onload = function () {
+        logo.width = l.size;
+        logo.height = l.size;
+        const left = (l.left * img.width) / 100;
+        const top = (l.top * img.height) / 100;
+
+        ctx.drawImage(logo, left, top, logo.width, logo.height);
+        if (startDownload) {
+          const anchor = document.createElement("a");
+          anchor.href = canvas.toDataURL("image/png");
+          anchor.download = "IMAGE.PNG";
+          anchor.click();
+          getNextImage();
+          if (currentImageIndex === imageSources.length - 1) {
+            stopDownload();
+          }
+        }
+      };
+      logo.src = l.logo;
+      
     };
   }, [textToAdd, currentImageIndex, logoToAdd, startDownload]);
 
