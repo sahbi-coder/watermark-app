@@ -1,6 +1,6 @@
 import Canvas from "../components/allImagesManipulation/Canvas";
 import { useRef, useState, useContext } from "react";
-import TextEditor from "../components/allImagesManipulation/TextEditor";
+import TextEditor from "../components/allImagesManipulation/textEditor";
 import LogoEditor from "../components/allImagesManipulation/LogoEditor";
 
 import { AppContext } from "../helpers/Context";
