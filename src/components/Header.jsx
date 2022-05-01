@@ -10,7 +10,7 @@ const Header = () => {
           </Link>
         </div>
       </nav>
-      <ToolsBar/>
+      <ToolsBar />
     </header>
   );
 };

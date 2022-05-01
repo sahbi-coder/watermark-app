@@ -1,12 +1,14 @@
+import { useState,useContext } from "react";
 import { AppContext } from "../helpers/Context";
-import { useContext} from "react";
 
 const UserOptions = () => {
   
   
-  const { toggleMode } = useContext(AppContext);
+  const {setIsIndividual} =useContext(AppContext)
+  
+
   return (
-    <form className="was-validated" >
+    <form className="was-validated">
       <div className="mb-3">please select one of the options below:</div>
       <div className="custom-control custom-radio mb-1">
         <input
@@ -15,7 +17,7 @@ const UserOptions = () => {
           id="multiple"
           name="radio-stacked"
           required
-          onClick={toggleMode}
+          onClick={(e)=>{setIsIndividual(false)}}
         />
         <label
           className="custom-control-label"
@@ -31,7 +33,7 @@ const UserOptions = () => {
           id="individual"
           name="radio-stacked"
           required
-          onClick={toggleMode}
+          onClick={(e)=>{setIsIndividual(true)}}
         />
         <label
           className="custom-control-label"

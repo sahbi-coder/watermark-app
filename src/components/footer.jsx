@@ -1,7 +1,4 @@
-
 const Footer = () => {
-  
-
   return (
     <footer className="pb-3 bg-dark d-flex flex-column justify-content-start">
       <div className="container px-4">
