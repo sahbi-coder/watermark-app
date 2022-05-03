@@ -12,11 +12,11 @@ const TEXT_ACTIONS = {
 }
 const initialState = {
     text:'watermark',
-    size:'16px',
+    size:10,
     family:'serif',
-    x:0,
-    y:0,
-    color:'black',
+    x:10,
+    y:10,
+    color:'#000000',
     angle:0,
 }
 const reducer = (state,{type,payload})=>{

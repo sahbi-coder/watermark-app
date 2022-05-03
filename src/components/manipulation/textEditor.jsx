@@ -12,44 +12,54 @@ import {
 
 import { Modal } from "react-bootstrap";
 import useText from "../../hooks/useText";
-import useStack from "../../hooks/useStack";
+import { ManipulationContext } from "../../helpers/ManipulationContext";
 import { useContext, useState } from "react";
 
 const TextEditor = ({}) => {
   const { textState, dispatchText, TEXT_ACTIONS } = useText();
   const { textConfigIsShown, hideTextConfig } = useContext(AppContext);
   const [colorPicker, setColorPicker] = useState(false);
-  const { state, ACTIONS, dispatch } = useStack();
+  const { state, ACTIONS, dispatch, setStartDownload } =
+    useContext(ManipulationContext);
+
   const setText = (e) => {
     e.preventDefault();
-    dispatchText({ type: TEXT_ACTIONS.SET_TEXT, payload: e.target.value||'watermark' });
+    dispatchText({
+      type: TEXT_ACTIONS.SET_TEXT,
+      payload: e.target.value || "watermark",
+    });
   };
   const setFamily = (e) => {
-   
     dispatchText({ type: TEXT_ACTIONS.SET_FAMILY, payload: e.target.value });
   };
   const setSize = (e) => {
     e.preventDefault();
-    dispatchText({ type: TEXT_ACTIONS.SET_SIZE, payload: e.target.value||'16px' });
+    dispatchText({
+      type: TEXT_ACTIONS.SET_SIZE,
+      payload: e.target.value || 16,
+    });
   };
   const setX = (e) => {
     e.preventDefault();
-    dispatchText({ type: TEXT_ACTIONS.SET_X, payload: e.target.value||10 });
+    dispatchText({ type: TEXT_ACTIONS.SET_X, payload: e.target.value || 10 });
   };
   const setY = (e) => {
     e.preventDefault();
-    dispatchText({ type: TEXT_ACTIONS.SET_Y, payload: e.target.value||10 });
+    dispatchText({ type: TEXT_ACTIONS.SET_Y, payload: e.target.value || 10 });
   };
   const setAngle = (e) => {
     e.preventDefault();
-    dispatchText({ type: TEXT_ACTIONS.SET_ANGLE, payload: e.target.value||0 });
+    dispatchText({
+      type: TEXT_ACTIONS.SET_ANGLE,
+      payload: e.target.value || 0,
+    });
   };
   const setcolor = (color) => {
-    dispatchText({ type: TEXT_ACTIONS.SET_COLOR, payload: color });
+    dispatchText({ type: TEXT_ACTIONS.SET_COLOR, payload: color.hex });
+   
   };
   const addToStack = () => {
     dispatch({ type: ACTIONS.ADD_TO_STACK, payload: textState });
-    console.log(state);
   };
   const clearStack = () => {
     dispatch({ type: ACTIONS.CLEAR_STACK });
@@ -95,9 +105,7 @@ const TextEditor = ({}) => {
               max="360"
               id="set-angle"
               onChange={setAngle}
-            
             />
-           
           </div>
 
           <div className=" mb-3 d-flex" style={{ position: "relative" }}>
@@ -114,7 +122,7 @@ const TextEditor = ({}) => {
               <div
                 style={{ position: "absolute", left: "100%", top: "-100px" }}
               >
-                <ChromePicker onChange={setcolor} color={textState.color}/>
+                <ChromePicker onChange={setcolor} color={textState.color} />
               </div>
             ) : null}
           </div>
@@ -122,7 +130,13 @@ const TextEditor = ({}) => {
             <label htmlFor="text-size" className="form-label mx-1">
               size:
             </label>
-            <input type="number" min="0" max="100" id="text-size" onChange={setSize}/>
+            <input
+              type="number"
+              min="0"
+              max="100"
+              id="text-size"
+              onChange={setSize}
+            />
           </div>
           <div className=" mb-3 d-flex">
             <label htmlFor="text-left-position" className="form-label mx-1">
@@ -172,15 +186,19 @@ const TextEditor = ({}) => {
             </button>
           </div>
           <div className=" mb-3 d-flex justify-content-start">
-            <button className="btn  btn-outline-danger mx-1"   onClick={hideTextConfig}>
-              <FontAwesomeIcon
-                icon={faCircleXmark}
-                className="mx-1"
-              
-              />
+            <button
+              className="btn  btn-outline-danger mx-1"
+              onClick={hideTextConfig}
+            >
+              <FontAwesomeIcon icon={faCircleXmark} className="mx-1" />
               close
             </button>
-            <button className="btn  btn-outline-success mx-1">
+            <button
+              className="btn  btn-outline-success mx-1"
+              onClick={() => {
+                setStartDownload(true);
+              }}
+            >
               download
               <FontAwesomeIcon icon={faDownload} className="mx-1" />
             </button>

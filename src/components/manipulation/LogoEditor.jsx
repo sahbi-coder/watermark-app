@@ -8,37 +8,33 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "react-bootstrap";
 import useLogo from "../../hooks/useLogo";
-import useStack from "../../hooks/useStack";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../helpers/Context";
-
+import { ManipulationContext } from "../../helpers/ManipulationContext";
 
 const LogoEditor = ({}) => {
   const { logoState, dispatchLogo, LOGO_ACTIONS } = useLogo();
   const { logoConfigIsShown, hideLogoConfig } = useContext(AppContext);
-
-  const { state, ACTIONS, dispatch } = useStack();
+  const { state, ACTIONS, dispatch ,setStartDownload} = useContext(ManipulationContext);
   const setLogo = (e) => {
     e.preventDefault();
     let file = e.target.files[0];
-    if(file.type.slice(0,5)==='image'){
-
+    if (file.type.slice(0, 5) === "image") {
       const fileReader = new FileReader();
       fileReader.onloadend = function () {
-        if(fileReader.result.slice(0,10)==='data:image'){
-                 
-  
-          dispatchLogo({ type: LOGO_ACTIONS.SET_LOGO, payload: fileReader.result });
-          return 
-          
+        if (fileReader.result.slice(0, 10) === "data:image") {
+          dispatchLogo({
+            type: LOGO_ACTIONS.SET_LOGO,
+            payload: fileReader.result,
+          });
+          return;
         }
-        alert('file must be an image')
+        alert("file must be an image");
       };
       fileReader.readAsDataURL(file);
-      return 
+      return;
     }
-    alert('file must be an image')
-
+    alert("file must be an image");
   };
 
   const setSize = (e) => {
@@ -55,9 +51,9 @@ const LogoEditor = ({}) => {
   };
 
   const addToStack = () => {
-    if(!logoState.logo){
-      alert('you must provide a logo')
-      return 
+    if (!logoState.logo) {
+      alert("you must provide a logo");
+      return;
     }
     dispatch({ type: ACTIONS.ADD_TO_STACK, payload: logoState });
    
@@ -149,7 +145,7 @@ const LogoEditor = ({}) => {
               <FontAwesomeIcon icon={faCircleXmark} className="mx-1" />
               close
             </button>
-            <button className="btn  btn-outline-success mx-1">
+            <button className="btn  btn-outline-success mx-1" onClick={()=>{setStartDownload(true)}}>
               download
               <FontAwesomeIcon icon={faDownload} className="mx-1" />
             </button>
