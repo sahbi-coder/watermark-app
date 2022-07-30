@@ -1,10 +1,12 @@
-import { AppContext } from "../../helpers/Context";
-import { useEffect, useRef, useContext } from "react";
-import { ManipulationContext } from "../../helpers/ManipulationContext";
 
+import { useEffect, useRef } from "react";
+
+import { useManipulate } from "../../helpers/ManipulationContext";
+
+import { useApp } from "../../helpers/Context";
 const Canvas = ({}) => {
   const canvasRef = useRef(null);
-  const { imageSources, isIndividualMode } = useContext(AppContext);
+  const { imageSources, isIndividualMode } = useApp();
   const {
     state,
     ACTIONS,
@@ -13,7 +15,7 @@ const Canvas = ({}) => {
     setStartDownload,
     currentIndex,
     setCurrentIndex,
-  } = useContext(ManipulationContext);
+  } = useManipulate();
 
   useEffect(() => {
     const canvas = canvasRef.current;

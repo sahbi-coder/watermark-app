@@ -1,6 +1,6 @@
 import { ChromePicker } from "react-color";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AppContext } from "../../helpers/Context";
+
 import {
   faCircleXmark,
   faDeleteLeft,
@@ -12,15 +12,15 @@ import {
 
 import { Modal } from "react-bootstrap";
 import useText from "../../hooks/useText";
-import { ManipulationContext } from "../../helpers/ManipulationContext";
-import { useContext, useState } from "react";
+import { useManipulate } from "../../helpers/ManipulationContext";
+import { useState } from "react";
+import { useApp } from "../../helpers/Context";
 
 const TextEditor = ({}) => {
   const { textState, dispatchText, TEXT_ACTIONS } = useText();
-  const { textConfigIsShown, hideTextConfig } = useContext(AppContext);
+  const { textConfigIsShown, hideTextConfig } = useApp();
   const [colorPicker, setColorPicker] = useState(false);
-  const { state, ACTIONS, dispatch, setStartDownload } =
-    useContext(ManipulationContext);
+  const { state, ACTIONS, dispatch, setStartDownload } = useManipulate();
 
   const setText = (e) => {
     e.preventDefault();
@@ -56,7 +56,6 @@ const TextEditor = ({}) => {
   };
   const setcolor = (color) => {
     dispatchText({ type: TEXT_ACTIONS.SET_COLOR, payload: color.hex });
-   
   };
   const addToStack = () => {
     dispatch({ type: ACTIONS.ADD_TO_STACK, payload: textState });

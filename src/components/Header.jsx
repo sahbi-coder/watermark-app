@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import ToolsBar from "./ToolsBar";
+
 const Header = () => {
+
+
   return (
     <header className="fixed-top">
       <nav className="navbar navbar-expand-lg navbar-light shadow-sm bg-white ">
@@ -9,6 +12,7 @@ const Header = () => {
             watermark generator app by sahbi kardi
           </Link>
         </div>
+      
       </nav>
       <ToolsBar />
     </header>

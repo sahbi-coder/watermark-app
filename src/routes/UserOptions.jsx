@@ -1,10 +1,10 @@
-import { useState,useContext } from "react";
-import { AppContext } from "../helpers/Context";
+
+import { useApp } from "../helpers/Context";
 
 const UserOptions = () => {
   
   
-  const {setIsIndividual} =useContext(AppContext)
+  const {setIsIndividual} =useApp()
   
 
   return (

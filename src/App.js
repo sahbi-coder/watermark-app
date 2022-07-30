@@ -1,46 +1,32 @@
 import Header from "./components/Header";
 import Home from "./routes/Home";
 import Footer from "./components/footer";
-import { AppContext } from "./helpers/Context";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import UserOptions from "./routes/UserOptions";
 import ImageManipaulation from "./routes/ImageManipulation";
 import AllImagesManipaulation from "./routes/allImagesManipulation";
-import { useLocation, useNavigate, Routes, Route } from "react-router-dom";
-import useMode from "./hooks/useMode";
-import useGetImages from "./hooks/useGetImages";
-import useToggle from "./hooks/useToggle";
+import { Routes, Route } from "react-router-dom";
+import { AppContextProvider } from "./helpers/Context";
+import Protected from "./components/Protected";
+import { AuthContextProvider } from "./helpers/AuthContext";
+import SignIn from "./routes/SignIn";
+import { useNavigate,useLocation } from "react-router-dom";
 
 function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const redirectedUrls = [
     "/user-options",
     "/image-manipulation",
     "/all-images-manipulation",
   ];
-
-  const { imageSources, handleUploadedImages, getImagesFromDrive } =
-    useGetImages();
-  const {
-    showLogoConfig,
-    hideLogoConfig,
-    showTextConfig,
-    hideTextConfig,
-    textConfigIsShown,
-    logoConfigIsShown,
-  } = useToggle();
-
-  const location = useLocation();
-  const navigate = useNavigate();
   useEffect(() => {
     if (~redirectedUrls.indexOf(location.pathname)) {
       navigate("/");
     }
   }, []);
-  const [isIndividual, setIsIndividual] = useState(null);
-  const { modeIsSelected, isIndividualMode } = useMode(
-    isIndividual,
-    imageSources
-  );
+
+
 
   return (
     <div
@@ -51,46 +37,56 @@ function App() {
         justifyContent: "space-between",
       }}
     >
-      <AppContext.Provider
-        value={{
-          handleUploadedImages,
-          setIsIndividual,
-          showTextConfig,
-          hideTextConfig,
-          showLogoConfig,
-          hideLogoConfig,
-          getImagesFromDrive,
-          textConfigIsShown,
-          logoConfigIsShown,
-          modeIsSelected,
-          isIndividualMode,
-          imageSources,
-        }}
-      >
-        <Header />
-        <main
-          style={{
-            marginTop: 170,
-            position: "relative",
-          }}
-          className="main"
-        >
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/user-options" element={<UserOptions />}></Route>
-            <Route
-              path="/image-manipulation"
-              element={<ImageManipaulation />}
-            ></Route>
-            <Route
-              path="/all-images-manipulation"
-              element={<AllImagesManipaulation />}
-            ></Route>
-          </Routes>
-        </main>
+      <AuthContextProvider>
+        <AppContextProvider>
+          <Header />
+          <main
+            style={{
+              marginTop: 170,
+              position: "relative",
+            }}
+            className="main"
+          >
+            <Routes>
+              <Route path="/signin" element={<SignIn />} />
+              <Route
+                path="/"
+                element={
+                  <Protected>
+                    <Home />
+                  </Protected>
+                }
+              ></Route>
+              <Route
+                path="/user-options"
+                element={
+                  <Protected>
+                    <UserOptions />
+                  </Protected>
+                }
+              ></Route>
+              <Route
+                path="/image-manipulation"
+                element={
+                  <Protected>
+                    <ImageManipaulation />
+                  </Protected>
+                }
+              ></Route>
+              <Route
+                path="/all-images-manipulation"
+                element={
+                  <Protected>
+                    <AllImagesManipaulation />
+                  </Protected>
+                }
+              ></Route>
+            </Routes>
+          </main>
 
-        <Footer />
-      </AppContext.Provider>
+          <Footer />
+        </AppContextProvider>
+      </AuthContextProvider>
     </div>
   );
 }

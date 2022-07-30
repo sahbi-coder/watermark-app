@@ -1,11 +1,10 @@
-import { useContext } from "react";
-import { useState, useEffect } from "react";
-import { AppContext } from "../../helpers/Context";
+
+import { useApp } from "../../helpers/Context";
 import BootstrapFilePicker from "./BootstrapFilePicker";
 import GoogleDriveFilePicker from "./googleDriveFilePicker";
 
 const Controls = () => {
-  const { handleUploadedImages } = useContext(AppContext);
+  const { handleUploadedImages } = useApp();
 
 
   return (

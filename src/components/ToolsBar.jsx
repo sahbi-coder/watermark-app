@@ -1,11 +1,11 @@
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AppContext } from "../helpers/Context";
 import useActivate from "../hooks/useActivate";
-
+import { useApp } from "../helpers/Context";
+import { UserAuth } from "../helpers/AuthContext";
 const ToolsBar = () => {
+  const { logOut, user } = UserAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const {
@@ -14,7 +14,16 @@ const ToolsBar = () => {
     modeIsSelected,
     isIndividualMode,
     imageSources,
-  } = useContext(AppContext);
+    setImageSources
+  } = useApp();
+  const handleSignOut = async () => {
+    try {
+      await logOut();
+      setImageSources([])
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const { prevIsActive, nextIsActive, prevIsShown, nextIsShown } = useActivate(
     imageSources,
@@ -65,7 +74,7 @@ const ToolsBar = () => {
           : "justify-content-center"
       } align-items-center  bg-white py-2`}
     >
-      {prevIsShown && (
+      {user && prevIsShown && (
         <button
           id="prev"
           className="btn bg-light mx-1 text-primary"
@@ -77,8 +86,8 @@ const ToolsBar = () => {
         </button>
       )}
 
-      {location.pathname === "/image-manipulation" ||
-      location.pathname === "/all-images-manipulation" ? (
+      {(user && location.pathname === "/image-manipulation") ||
+      (user && location.pathname === "/all-images-manipulation") ? (
         <div className="py-1">
           <button
             className="btn bg-light mx-1 text-primary"
@@ -95,7 +104,7 @@ const ToolsBar = () => {
         </div>
       ) : null}
 
-      {nextIsShown ? (
+      {user && nextIsShown ? (
         <button
           id="next"
           className="btn bg-light mx-1 text-primary"
@@ -106,6 +115,15 @@ const ToolsBar = () => {
           <FontAwesomeIcon icon={faArrowRight} className="color-dark mx-2" />
         </button>
       ) : null}
+      {user && (
+        <button
+          onClick={handleSignOut}
+          className="btn bg-light mx-1 text-primary"
+        >
+          {" "}
+          Logout
+        </button>
+      )}
     </div>
   );
 };

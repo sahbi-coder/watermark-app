@@ -24,7 +24,7 @@ function useGetImages() {
   const getImagesFromDrive = (data) => {
     setImageSources([data.map((i) => i.result.webContentLink)]);
   };
-  return { imageSources, handleUploadedImages, getImagesFromDrive };
+  return { imageSources, handleUploadedImages, getImagesFromDrive ,setImageSources};
 }
 
 export default useGetImages;

@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { AppContext } from "../../helpers/Context";
+
+import { useApp } from "../../helpers/Context";
 
 const Grid = () => {
-  const { imageSources } = useContext(AppContext);
+  const { imageSources } = useApp();
   const generateKey = (pre) => {
     return `${pre}_${new Date().getTime()}_${Math.floor(Math.random() * 1000)}`;
   };

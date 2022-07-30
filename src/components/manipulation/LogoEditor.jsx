@@ -8,14 +8,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "react-bootstrap";
 import useLogo from "../../hooks/useLogo";
-import { useContext } from "react";
-import { AppContext } from "../../helpers/Context";
-import { ManipulationContext } from "../../helpers/ManipulationContext";
+
+import { useApp } from "../../helpers/Context";
+import { useManipulate } from "../../helpers/ManipulationContext";
 
 const LogoEditor = ({}) => {
   const { logoState, dispatchLogo, LOGO_ACTIONS } = useLogo();
-  const { logoConfigIsShown, hideLogoConfig } = useContext(AppContext);
-  const { state, ACTIONS, dispatch ,setStartDownload} = useContext(ManipulationContext);
+  const { logoConfigIsShown, hideLogoConfig } = useApp();
+  const { state, ACTIONS, dispatch ,setStartDownload} = useManipulate();
   const setLogo = (e) => {
     e.preventDefault();
     let file = e.target.files[0];

@@ -1,13 +1,13 @@
-import { AppContext } from "../../helpers/Context";
-import { useEffect, useRef, useContext } from "react";
-import { ManipulationContext } from "../../helpers/ManipulationContext";
+import { useEffect, useRef} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { useApp } from "../../helpers/Context";
+import { useManipulate } from "../../helpers/ManipulationContext";
 
 const Canvas = ({}) => {
   const canvasRef = useRef(null);
-  const { imageSources, isIndividualMode } = useContext(AppContext);
+  const { imageSources, isIndividualMode } = useApp();
   const {
     state,
     ACTIONS,
@@ -16,7 +16,7 @@ const Canvas = ({}) => {
     setStartDownload,
     setCurrentIndex,
     currentIndex,
-  } = useContext(ManipulationContext);
+  } = useManipulate();
 
   useEffect(() => {
     const canvas = canvasRef.current;
