@@ -10,7 +10,7 @@ const Controls = () => {
   return (
     <div className="d-flex justify-content-center my-3 ">
       <div className=" card rounded p-2" >
-         <GoogleDriveFilePicker /> 
+         {/* <GoogleDriveFilePicker />  */}
 
         <BootstrapFilePicker handleUploadedImages={handleUploadedImages} />
       </div>
