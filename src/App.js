@@ -47,7 +47,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/user-options"
+              path="user-options"
               element={
                 <Protected>
                   <UserOptions />
@@ -55,7 +55,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/image-manipulation"
+              path="image-manipulation"
               element={
                 <Protected>
                   <ImageManipaulation />
@@ -63,7 +63,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/all-images-manipulation"
+              path="all-images-manipulation"
               element={
                 <Protected>
                   <AllImagesManipaulation />
