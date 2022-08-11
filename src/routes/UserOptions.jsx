@@ -1,13 +1,12 @@
-
 import { useApp } from "../helpers/Context";
-
+import Header from "../components/Header";
+import Footer from "../components/footer";
 const UserOptions = () => {
-  
-  
-  const {setIsIndividual} =useApp()
-  
+  const { setIsIndividual } = useApp();
 
   return (
+    <>
+    <Header/>
     <form className="was-validated">
       <div className="mb-3">please select one of the options below:</div>
       <div className="custom-control custom-radio mb-1">
@@ -17,7 +16,9 @@ const UserOptions = () => {
           id="multiple"
           name="radio-stacked"
           required
-          onClick={(e)=>{setIsIndividual(false)}}
+          onClick={(e) => {
+            setIsIndividual(false);
+          }}
         />
         <label
           className="custom-control-label"
@@ -33,7 +34,9 @@ const UserOptions = () => {
           id="individual"
           name="radio-stacked"
           required
-          onClick={(e)=>{setIsIndividual(true)}}
+          onClick={(e) => {
+            setIsIndividual(true);
+          }}
         />
         <label
           className="custom-control-label"
@@ -43,6 +46,8 @@ const UserOptions = () => {
         </label>
       </div>
     </form>
+    <Footer/>
+    </>
   );
 };
 export default UserOptions;

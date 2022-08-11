@@ -3,6 +3,8 @@
 }
 html,body,#root{
     height: 100%;
+    width:100vw;
+    overflow-x: hidden;
 }
 
 body{
@@ -68,7 +70,17 @@ body{
     opacity: 0;
     position: absolute;
     z-index: -1;
-  }  
+  } 
+
+  @media only screen and (max-width:360px){
+
+      .navbar-brand {
+        font-size: .9rem ;
+      }
+    
+    
+  }
+ 
  
 
 

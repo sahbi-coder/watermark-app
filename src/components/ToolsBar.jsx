@@ -4,8 +4,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useActivate from "../hooks/useActivate";
 import { useApp } from "../helpers/Context";
 import { UserAuth } from "../helpers/AuthContext";
+import { useEffect } from "react";
+import { useState } from "react";
 const ToolsBar = () => {
   const { logOut, user } = UserAuth();
+  const [isMobileBelow360,setIsMobileBelow360]= useState(false)
   const location = useLocation();
   const navigate = useNavigate();
   const {
@@ -14,12 +17,12 @@ const ToolsBar = () => {
     modeIsSelected,
     isIndividualMode,
     imageSources,
-    setImageSources
+    setImageSources,
   } = useApp();
   const handleSignOut = async () => {
     try {
       await logOut();
-      setImageSources([])
+      setImageSources([]);
     } catch (error) {
       console.log(error);
     }
@@ -63,10 +66,16 @@ const ToolsBar = () => {
       navigate("/");
     }
   };
+  useEffect(()=>{
+    if(window.matchMedia("(max-width: 360px)").matches){
+      return setIsMobileBelow360(true)
+    }
+    setIsMobileBelow360(false)
+  },[])
 
   return (
     <div
-      className={`d-md-flex ${
+      className={`d-flex ${
         location.pathname === "/user-options"
           ? "justify-content-between"
           : location.pathname === "/"
@@ -77,12 +86,12 @@ const ToolsBar = () => {
       {user && prevIsShown && (
         <button
           id="prev"
-          className="btn bg-light mx-1 text-primary"
+          className="btn bg-light mx-1 text-primary tools-bar-btn"
           disabled={!prevIsActive}
           onClick={gotToPrev}
         >
           <FontAwesomeIcon icon={faArrowLeft} className="color-dark mx-2" />
-          PREVIOUS STEP
+          {isMobileBelow360?'PREV':'PREVIOUS STEP'}
         </button>
       )}
 
@@ -90,40 +99,42 @@ const ToolsBar = () => {
       (user && location.pathname === "/all-images-manipulation") ? (
         <div className="py-1">
           <button
-            className="btn bg-light mx-1 text-primary"
+            className="btn bg-light m-1 text-primary tools-bar-btn"
             onClick={showTextConfig}
           >
-            ADD TEXT
+            {isMobileBelow360?"TEXT":"ADD TEXT"}
+           
           </button>
           <button
-            className="btn bg-light mx-1 text-primary"
+            className="btn bg-light m-1 text-primary tools-bar-btn"
             onClick={showLogoConfig}
           >
-            ADD LOGO
+            {isMobileBelow360?"LOGO":"ADD LOGO"}
           </button>
         </div>
       ) : null}
 
-      {user && nextIsShown ? (
-        <button
-          id="next"
-          className="btn bg-light mx-1 text-primary"
-          disabled={!nextIsActive}
-          onClick={gotToNext}
-        >
-          NEXT STEP
-          <FontAwesomeIcon icon={faArrowRight} className="color-dark mx-2" />
-        </button>
-      ) : null}
       {user && (
         <button
           onClick={handleSignOut}
-          className="btn bg-light mx-1 text-primary"
+          className="btn bg-light mx-1 text-primary tools-bar-btn"
         >
           {" "}
           Logout
         </button>
       )}
+      {user && nextIsShown ? (
+        <button
+          id="next"
+          className="btn bg-light mx-1 text-primary tools-bar-btn"
+          disabled={!nextIsActive}
+
+          onClick={gotToNext}
+        >
+          {isMobileBelow360?'NEXT':'NEXT STEP'}
+          <FontAwesomeIcon icon={faArrowRight} className="color-dark mx-2 tools-bar-btn" />
+        </button>
+      ) : null}
     </div>
   );
 };

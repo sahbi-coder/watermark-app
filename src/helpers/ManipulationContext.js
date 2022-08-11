@@ -7,7 +7,7 @@ export const ManipulationContextProvider = ({ children }) => {
   const [startDownload, setStartDownload] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   return (
-    <div>
+    <>
       <ManipulationContext.Provider  value={{
           dispatch,
           setStartDownload,
@@ -20,7 +20,7 @@ export const ManipulationContextProvider = ({ children }) => {
             {children}
 
       </ManipulationContext.Provider>
-    </div>
+    </>
   );
 };
 export const useManipulate = ()=>{

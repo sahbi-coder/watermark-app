@@ -8,8 +8,8 @@ const Controls = () => {
 
 
   return (
-    <div className="d-flex justify-content-center mb-3 ">
-      <div className="  card rounded" style={{ width: 330 }}>
+    <div className="d-flex justify-content-center my-3 ">
+      <div className=" card rounded p-2" >
          <GoogleDriveFilePicker /> 
 
         <BootstrapFilePicker handleUploadedImages={handleUploadedImages} />
