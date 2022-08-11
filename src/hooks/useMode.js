@@ -1,4 +1,4 @@
-import { useReducer,  useEffect, useContext, useState } from "react";
+import { useReducer,  useEffect } from "react";
 import {  useLocation } from "react-router-dom";
 
 const intitialState = {
@@ -45,7 +45,7 @@ function useMode(isIndividual = null,imageSources =[]) {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === "/") {
+    if (location.pathname === "/watermark-app") {
       if (imageSources.length === 1) {
         dispatch({ type: TYPES.SET_IS_INDIVIDUAL });
         dispatch({ type: TYPES.SET_IS_SELECTED });
@@ -56,7 +56,7 @@ function useMode(isIndividual = null,imageSources =[]) {
       }
       return;
     }
-    if (location.pathname === "/user-options") {
+    if (location.pathname === "/watermark-app/user-options") {
       
       if(isIndividual===null){
 

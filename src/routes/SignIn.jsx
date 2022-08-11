@@ -19,7 +19,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (user != null) {
-      navigate('/');
+      navigate('/watermark-app');
     }
   }, [user]);
 

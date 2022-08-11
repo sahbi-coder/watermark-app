@@ -34,36 +34,36 @@ const ToolsBar = () => {
   );
 
   const gotToNext = (e) => {
-    if (location.pathname === "/") {
+    if (location.pathname === "/watermark-app") {
       if (modeIsSelected && isIndividualMode) {
-        navigate("/image-manipulation");
+        navigate("/watermark-app/image-manipulation");
       }
       if (modeIsSelected && !isIndividualMode) {
-        navigate("/user-options");
+        navigate("/watermark-app/user-options");
       }
     }
-    if (location.pathname === "/user-options") {
+    if (location.pathname === "/watermark-app/user-options") {
       if (modeIsSelected && isIndividualMode) {
-        navigate("/image-manipulation");
+        navigate("/watermark-app/image-manipulation");
       }
       if (modeIsSelected && !isIndividualMode) {
-        navigate("/all-images-manipulation");
+        navigate("/watermark-app/all-images-manipulation");
       }
     }
   };
   const gotToPrev = (e) => {
-    if (location.pathname === "/user-options") {
-      navigate("/");
+    if (location.pathname === "/watermark-app/user-options") {
+      navigate("/watermark-app");
     }
-    if (location.pathname === "/all-images-manipulation") {
-      navigate("/user-options");
+    if (location.pathname === "/watermark-app/all-images-manipulation") {
+      navigate("/watermark-app/user-options");
     }
-    if (location.pathname === "/image-manipulation") {
+    if (location.pathname === "/watermark-app/image-manipulation") {
       if (imageSources.length > 1) {
-        navigate("/user-options");
+        navigate("/watermark-app/user-options");
         return;
       }
-      navigate("/");
+      navigate("/watermark-app");
     }
   };
   useEffect(()=>{
@@ -76,9 +76,9 @@ const ToolsBar = () => {
   return (
     <div
       className={`d-flex ${
-        location.pathname === "/user-options"
+        location.pathname === "/watermark-app/user-options"
           ? "justify-content-between"
-          : location.pathname === "/"
+          : location.pathname === "/watermark-app"
           ? "justify-content-end"
           : "justify-content-center"
       } align-items-center  bg-white py-2`}
@@ -95,8 +95,8 @@ const ToolsBar = () => {
         </button>
       )}
 
-      {(user && location.pathname === "/image-manipulation") ||
-      (user && location.pathname === "/all-images-manipulation") ? (
+      {(user && location.pathname === "/watermark-app/image-manipulation") ||
+      (user && location.pathname === "/watermark-app/all-images-manipulation") ? (
         <div className="py-1">
           <button
             className="btn bg-light m-1 text-primary tools-bar-btn"

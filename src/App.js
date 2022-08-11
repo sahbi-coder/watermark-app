@@ -14,13 +14,13 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const redirectedUrls = [
-    "/user-options",
-    "/image-manipulation",
-    "/all-images-manipulation",
+    "/watermark-app/user-options",
+    "/watermark-app/image-manipulation",
+    "/watermark-app/all-images-manipulation",
   ];
   useEffect(() => {
     if (~redirectedUrls.indexOf(location.pathname)) {
-      navigate("/");
+      navigate("/watermark-app");
     }
   }, []);
 
@@ -37,9 +37,9 @@ function App() {
       <AuthContextProvider>
         <AppContextProvider>
           <Routes>
-            <Route path="/signin" element={<SignIn />} />
+            <Route path="/watermark-app/signin" element={<SignIn />} />
             <Route
-              path="/"
+              path="/watermark-app"
               element={
                 <Protected>
                   <Home />
