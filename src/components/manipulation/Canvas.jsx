@@ -82,7 +82,7 @@ const Canvas = ({ isMobile }) => {
           if (count === state.stack.length) downloadAndReset();
         }
       };
-      logo.onerror = (e) => alert("Error happened" + e.toString());
+   
       logo.src = l;
     };
     const draw = () => {
@@ -137,7 +137,7 @@ const Canvas = ({ isMobile }) => {
     };
 
     const drawImages = () => {
-      img.onerror = (e) => alert("Error happened" + e.toString());
+      
       img.onload = function () {
         if (!startDownload) {
           draw();

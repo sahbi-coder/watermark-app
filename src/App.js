@@ -37,17 +37,19 @@ function App() {
       <AuthContextProvider>
         <AppContextProvider>
           <Routes>
-            <Route path="/watermark-app/signin" element={<SignIn />} />
+            
             <Route
               path="/watermark-app"
+              exact
               element={
                 <Protected>
                   <Home />
                 </Protected>
               }
             ></Route>
+            <Route path="/watermark-app/signin" element={<SignIn />} />
             <Route
-              path="user-options"
+              path="/watermark-app/user-options"
               element={
                 <Protected>
                   <UserOptions />
@@ -55,7 +57,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="image-manipulation"
+              path="/watermark-app/image-manipulation"
               element={
                 <Protected>
                   <ImageManipaulation />
@@ -63,7 +65,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="all-images-manipulation"
+              path="/watermark-app/all-images-manipulation"
               element={
                 <Protected>
                   <AllImagesManipaulation />
