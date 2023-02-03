@@ -35,6 +35,7 @@ const useGoogleDrive = (data) => {
     const initClient = () => {
       window.gapi.client.init({
         clientId: process.env.REACT_APP_CLIENT_ID,
+       
 
         scope: SCOPE,
       });

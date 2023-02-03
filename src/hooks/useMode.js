@@ -1,4 +1,4 @@
-import { useReducer,  useEffect, useContext, useState } from "react";
+import { useReducer,  useEffect } from "react";
 import {  useLocation } from "react-router-dom";
 
 const intitialState = {

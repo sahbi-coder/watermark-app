@@ -8,6 +8,7 @@ const Home = () => {
     <>
       <Header />
       <div>
+
         <Controls />
         <Grid />
       </div>

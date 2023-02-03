@@ -20,7 +20,7 @@ function App() {
   ];
   useEffect(() => {
     if (~redirectedUrls.indexOf(location.pathname)) {
-      navigate("/");
+      navigate("/home");
     }
   }, []);
 
@@ -37,15 +37,17 @@ function App() {
       <AuthContextProvider>
         <AppContextProvider>
           <Routes>
-            <Route path="/signin" element={<SignIn />} />
+            
             <Route
               path="/"
+              exact
               element={
                 <Protected>
                   <Home />
                 </Protected>
               }
             ></Route>
+            <Route path="/signin" element={<SignIn />} />
             <Route
               path="/user-options"
               element={

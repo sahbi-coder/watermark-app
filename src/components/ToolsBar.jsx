@@ -34,6 +34,9 @@ const ToolsBar = () => {
   );
 
   const gotToNext = (e) => {
+    console.log(location.pathname)
+    e.preventDefault()
+    console.log(modeIsSelected,isIndividualMode)
     if (location.pathname === "/") {
       if (modeIsSelected && isIndividualMode) {
         navigate("/image-manipulation");
