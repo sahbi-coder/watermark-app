@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { GoogleButton } from 'react-google-button';
-import { UserAuth } from '../helpers/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/footer'
+import React, { useEffect } from "react";
+import { GoogleButton } from "react-google-button";
+import { UserAuth } from "../helpers/AuthContext";
+import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/footer";
 
 const SignIn = () => {
   const { googleSignIn, user } = UserAuth();
@@ -19,18 +19,18 @@ const SignIn = () => {
 
   useEffect(() => {
     if (user != null) {
-      navigate('/watermark-app');
+      navigate("/");
     }
   }, [user]);
 
   return (
     <>
-      <Header/>
-      <h1 >Sign in</h1>
-      <div className='container d-flex justify-content-center my-2'>
+      <Header />
+      <div className="container d-flex justify-content-center mb-5 flex-column align-items-center">
+        <h1>Sign in</h1>
         <GoogleButton onClick={handleGoogleSignIn} />
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

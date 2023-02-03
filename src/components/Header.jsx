@@ -8,7 +8,7 @@ const Header = () => {
     <header >
       <nav className="navbar navbar-expand-lg navbar-light shadow-sm bg-white ">
         <div className="container">
-          <Link className="navbar-brand text-primary" to="/watermark-app" >
+          <Link className="navbar-brand text-primary" to="/" >
             watermark generator app by sahbi kardi
           </Link>
         </div>

@@ -14,13 +14,13 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const redirectedUrls = [
-    "/watermark-app/user-options",
-    "/watermark-app/image-manipulation",
-    "/watermark-app/all-images-manipulation",
+    "/user-options",
+    "/image-manipulation",
+    "/all-images-manipulation",
   ];
   useEffect(() => {
     if (~redirectedUrls.indexOf(location.pathname)) {
-      navigate("/watermark-app");
+      navigate("/home");
     }
   }, []);
 
@@ -39,7 +39,7 @@ function App() {
           <Routes>
             
             <Route
-              path="/watermark-app"
+              path="/"
               exact
               element={
                 <Protected>
@@ -47,9 +47,9 @@ function App() {
                 </Protected>
               }
             ></Route>
-            <Route path="/watermark-app/signin" element={<SignIn />} />
+            <Route path="/signin" element={<SignIn />} />
             <Route
-              path="/watermark-app/user-options"
+              path="/user-options"
               element={
                 <Protected>
                   <UserOptions />
@@ -57,7 +57,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/watermark-app/image-manipulation"
+              path="/image-manipulation"
               element={
                 <Protected>
                   <ImageManipaulation />
@@ -65,7 +65,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/watermark-app/all-images-manipulation"
+              path="/all-images-manipulation"
               element={
                 <Protected>
                   <AllImagesManipaulation />

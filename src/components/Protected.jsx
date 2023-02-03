@@ -5,7 +5,7 @@ import { UserAuth } from '../helpers/AuthContext';
 const Protected = ({ children }) => {
   const { user } = UserAuth();
   if (!user) {
-    return <Navigate to='/watermark-app/signin' />;
+    return <Navigate to='/signin' />;
   }
 
   return children;

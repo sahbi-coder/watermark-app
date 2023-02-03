@@ -71,7 +71,7 @@ function useActivate(imageSouces=[],modeIsSelected) {
   const location = useLocation();
   
   useEffect(() => {
-    if (location.pathname === "/watermark-app") {
+    if (location.pathname === "/") {
         dispatch({ type: TYPES.RESET_PREV_IS_ACTIVE });
         dispatch({ type: TYPES.RESET_PREV_IS_SHOWN });
         dispatch({ type: TYPES.SET_NEXT_IS_SHOWN });
@@ -82,7 +82,7 @@ function useActivate(imageSouces=[],modeIsSelected) {
       }
       return
     }
-    if (location.pathname === "/watermark-app/user-options") {
+    if (location.pathname === "/user-options") {
       dispatch({ type: TYPES.SET_PREV_IS_ACTIVE });
       dispatch({ type: TYPES.SET_PREV_IS_SHOWN });
       dispatch({ type: TYPES.SET_NEXT_IS_SHOWN });
@@ -92,7 +92,7 @@ function useActivate(imageSouces=[],modeIsSelected) {
       }
       return
     }
-    if ((location.pathname === "/watermark-app/image-manipulation")||(location.pathname === "/watermark-app/all-images-manipulation")) {
+    if ((location.pathname === "/image-manipulation")||(location.pathname === "/all-images-manipulation")) {
       dispatch({ type: TYPES.SET_PREV_IS_ACTIVE });
       dispatch({ type: TYPES.SET_PREV_IS_SHOWN });
       dispatch({ type: TYPES.RESET_NEXT_IS_SHOWN });

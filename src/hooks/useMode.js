@@ -45,7 +45,7 @@ function useMode(isIndividual = null,imageSources =[]) {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === "/watermark-app") {
+    if (location.pathname === "/") {
       if (imageSources.length === 1) {
         dispatch({ type: TYPES.SET_IS_INDIVIDUAL });
         dispatch({ type: TYPES.SET_IS_SELECTED });
@@ -56,7 +56,7 @@ function useMode(isIndividual = null,imageSources =[]) {
       }
       return;
     }
-    if (location.pathname === "/watermark-app/user-options") {
+    if (location.pathname === "/user-options") {
       
       if(isIndividual===null){
 
